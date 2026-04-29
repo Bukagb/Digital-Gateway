@@ -19,14 +19,17 @@ export default function App() {
   const [user, setUser] = useState<UserProfile>(() => {
     const saved = localStorage.getItem('user');
     return saved ? JSON.parse(saved) : {
-      name: '',
-      nationality: '',
-      university: '',
-      arrivalDate: '',
-      city: '',
-      motivation: '',
+      name: 'Guest User',
+      nationality: 'Traveler',
+      university: 'Porto Business School',
+      arrivalDate: '2024-09-01',
+      city: 'Porto',
+      motivation: 'Education/Relocation',
       language: 'English',
-      isOnboarded: false
+      isOnboarded: false,
+      gender: '',
+      email: '',
+      visaStatus: ''
     };
   });
 
@@ -113,6 +116,7 @@ export default function App() {
           <TaskDetail 
             taskId={selectedTaskId} 
             tasks={tasks} 
+            user={user}
             onBack={() => setCurrentPage('journey')}
             onUpdateStatus={handleUpdateTaskStatus}
           />

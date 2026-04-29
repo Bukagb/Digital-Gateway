@@ -24,9 +24,12 @@ interface OnboardingProps {
 
 export default function Onboarding({ onComplete }: OnboardingProps) {
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState<Partial<UserProfile>>({
+  const [formData, setFormData] = useState<Partial<UserProfile & { gender: string, email: string, visaStatus: string }>>({
     name: '',
+    gender: '',
     nationality: '',
+    email: '',
+    visaStatus: '',
     university: '',
     arrivalDate: '',
     city: '',
@@ -38,311 +41,295 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
 
-  const updateForm = (data: Partial<UserProfile>) => {
+  const updateForm = (data: Partial<UserProfile & { gender: string, email: string, visaStatus: string }>) => {
     setFormData(prev => ({ ...prev, ...data }));
   };
 
-  const motivations = [
-    { id: 'Study', icon: BookOpen, label: 'Study', color: 'bg-blue-50 text-blue-600' },
-    { id: 'Work', icon: Briefcase, label: 'Work', color: 'bg-emerald-50 text-emerald-600' },
-    { id: 'Family', icon: Users, label: 'Family', color: 'bg-orange-50 text-orange-600' },
-    { id: 'Other', icon: Sparkles, label: 'Other', color: 'bg-purple-50 text-purple-600' },
-  ];
-
-  const languages = [
-    { id: 'English', label: 'English', flag: '🇬🇧' },
-    { id: 'Portuguese', label: 'Portuguese', flag: '🇵🇹' },
-    { id: 'Spanish', label: 'Spanish', flag: '🇪🇸' },
-  ];
-
   const renderStep = () => {
     switch (step) {
-      case 1:
+      case 1: // Account Setup
         return (
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center max-w-md mx-auto"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="w-full max-w-lg space-y-6"
           >
-            <Logo className="justify-center mb-8 scale-150" />
-            <h1 className="font-serif text-4xl font-bold text-ink mb-4 tracking-tight leading-tight">
-              Your step-by-step guide to settling in Portugal
-            </h1>
-            <p className="text-gray-500 mb-10 text-lg">
-              Everything you need. In the right order. No confusion.
-            </p>
-            <div className="relative mb-12">
-              <div className="absolute inset-0 flex items-center justify-center -z-10">
-                <div className="w-64 h-64 bg-primary-light rounded-full blur-3xl opacity-50"></div>
+            <div className="space-y-2">
+              <h2 className="text-3xl font-bold tracking-tight text-ink">Account Setup</h2>
+              <p className="text-text-muted">Let's get started with your basic information.</p>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="space-y-1.5">
+                <label className="text-sm font-semibold text-ink ml-1">Full Name</label>
+                <input 
+                  type="text" 
+                  placeholder="John Doe"
+                  className="w-full bg-white border border-gray-200 rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  value={formData.name}
+                  onChange={(e) => updateForm({ name: e.target.value })}
+                />
               </div>
-              <img 
-                src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&q=80&w=400" 
-                alt="Portugal Street" 
-                className="w-full h-56 object-cover rounded-[20px] shadow-2xl border-4 border-white"
-                style={{ imageRendering: 'auto' }}
-              />
-            </div>
-            <button 
-              onClick={nextStep}
-              className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-xl shadow-xl shadow-primary/20 transition-all flex items-center justify-center gap-2 group text-lg"
-            >
-              Get Started
-              <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-            </button>
-          </motion.div>
-        );
 
-      case 2:
-        return (
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="w-full max-w-lg"
-          >
-            <h2 className="text-3xl font-bold mb-2">Why are you moving to Portugal?</h2>
-            <p className="text-text-muted mb-8 text-lg">We'll tailor your journey based on your goal.</p>
-            <div className="grid grid-cols-2 gap-4 mb-10">
-              {motivations.map((m) => (
-                <button
-                  key={m.id}
-                  onClick={() => {
-                    updateForm({ motivation: m.id });
-                    nextStep();
-                  }}
-                  className={`p-6 rounded-3xl border-2 transition-all flex flex-col items-center gap-3 group bg-white shadow-sm h-40 justify-center ${
-                    formData.motivation === m.id ? 'border-primary bg-primary-light/20' : 'border-gray-100 hover:border-primary-light hover:bg-gray-50'
-                  }`}
-                >
-                  <div className={`p-4 rounded-2xl ${m.color} group-hover:scale-110 transition-transform`}>
-                    <m.icon size={28} />
-                  </div>
-                  <span className="font-semibold text-text-main">{m.label}</span>
-                </button>
-              ))}
-            </div>
-          </motion.div>
-        );
-
-      case 3:
-        return (
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="w-full max-w-lg"
-          >
-            <h2 className="text-3xl font-bold mb-2">Tell us about yourself</h2>
-            <p className="text-text-muted mb-8 text-lg">Help us customize your relocation checklist.</p>
-            <div className="space-y-5">
-              <div className="space-y-2">
-                <label className="text-sm font-semibold text-text-main ml-1">Full Name</label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"><Users size={18} /></span>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <label className="text-sm font-semibold text-ink ml-1">Gender</label>
+                  <select 
+                    className="w-full bg-white border border-gray-200 rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none"
+                    value={formData.gender}
+                    onChange={(e) => updateForm({ gender: e.target.value })}
+                  >
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Prefer not to say">Prefer not to say</option>
+                  </select>
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-sm font-semibold text-ink ml-1">Nationality</label>
                   <input 
                     type="text" 
-                    placeholder="John Doe"
-                    className="w-full bg-white border border-gray-200 rounded-2xl py-3.5 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-base"
-                    value={formData.name}
-                    onChange={(e) => updateForm({ name: e.target.value })}
+                    placeholder="e.g. Brazil"
+                    className="w-full bg-white border border-gray-200 rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                    value={formData.nationality}
+                    onChange={(e) => updateForm({ nationality: e.target.value })}
                   />
                 </div>
               </div>
-              
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-text-main ml-1">Nationality</label>
-                  <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"><Globe size={18} /></span>
-                    <input 
-                      type="text" 
-                      placeholder="e.g. Brazil"
-                      className="w-full bg-white border border-gray-200 rounded-2xl py-3.5 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-base"
-                      value={formData.nationality}
-                      onChange={(e) => updateForm({ nationality: e.target.value })}
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-text-main ml-1">Arrival Date</label>
-                  <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"><Calendar size={18} /></span>
-                    <input 
-                      type="date" 
-                      className="w-full bg-white border border-gray-200 rounded-2xl py-3.5 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-base"
-                      value={formData.arrivalDate}
-                      onChange={(e) => updateForm({ arrivalDate: e.target.value })}
-                    />
-                  </div>
+
+              <div className="space-y-1.5">
+                <label className="text-sm font-semibold text-ink ml-1">Email</label>
+                <div className="relative">
+                  <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                  <input 
+                    type="email" 
+                    placeholder="email@example.com"
+                    className="w-full bg-white border border-gray-200 rounded-2xl py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                    value={formData.email}
+                    onChange={(e) => updateForm({ email: e.target.value })}
+                  />
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-text-main ml-1">Preferred City</label>
-                  <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"><MapPin size={18} /></span>
-                    <select 
-                      className="w-full bg-white border border-gray-200 rounded-2xl py-3.5 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-base appearance-none"
-                      value={formData.city}
-                      onChange={(e) => updateForm({ city: e.target.value })}
-                    >
-                      <option value="">Select City</option>
-                      <option value="Porto">Porto</option>
-                      <option value="Lisbon">Lisbon</option>
-                      <option value="Coimbra">Coimbra</option>
-                      <option value="Braga">Braga</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-text-main ml-1">University</label>
-                  <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"><BookOpen size={18} /></span>
-                    <input 
-                      type="text" 
-                      placeholder="e.g. U.Porto"
-                      className="w-full bg-white border border-gray-200 rounded-2xl py-3.5 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-base"
-                      value={formData.university}
-                      onChange={(e) => updateForm({ university: e.target.value })}
-                    />
-                  </div>
+              <div className="space-y-1.5">
+                <label className="text-sm font-semibold text-ink ml-1">Password</label>
+                <div className="relative">
+                  <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                  <input 
+                    type="password" 
+                    placeholder="••••••••"
+                    className="w-full bg-white border border-gray-200 rounded-2xl py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  />
                 </div>
               </div>
             </div>
+
             <button 
               onClick={nextStep}
-              disabled={!formData.name || !formData.nationality}
-              className="w-full mt-10 bg-primary hover:bg-primary-dark disabled:bg-gray-200 disabled:cursor-not-allowed text-white font-bold py-4 rounded-2xl shadow-xl shadow-primary/20 transition-all flex items-center justify-center gap-2 group text-lg"
+              disabled={!formData.name || !formData.nationality || !formData.email}
+              className="w-full bg-primary hover:bg-primary-dark disabled:bg-gray-200 text-white font-bold py-4 rounded-2xl shadow-xl shadow-primary/20 transition-all flex items-center justify-center gap-2 group"
             >
               Continue
               <ArrowRight className="group-hover:translate-x-1 transition-transform" />
             </button>
+
+            <p className="text-center text-sm text-text-muted">
+              Already have an account? <button className="text-primary font-bold hover:underline">Log in</button>
+            </p>
           </motion.div>
         );
 
-      case 4:
+      case 2: // What brings you to Portugal?
         return (
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="w-full max-w-lg"
+            className="w-full max-w-lg space-y-8"
           >
-            <h2 className="text-3xl font-bold mb-2">Language preference</h2>
-            <p className="text-text-muted mb-8 text-lg">We'll provide resources in your preferred language.</p>
-            <div className="space-y-3 mb-10">
-              {languages.map((lang) => (
-                <button
-                  key={lang.id}
-                  onClick={() => updateForm({ language: lang.id as any })}
-                  className={`w-full p-5 rounded-2xl border-2 transition-all flex items-center gap-4 bg-white hover:bg-gray-50 h-20 ${
-                    formData.language === lang.id ? 'border-primary bg-primary-light/10' : 'border-gray-100'
-                  }`}
-                >
-                  <span className="text-3xl">{lang.flag}</span>
-                  <span className={`font-semibold text-lg ${formData.language === lang.id ? 'text-primary' : 'text-text-main'}`}>
-                    {lang.label}
-                  </span>
-                  {formData.language === lang.id && <CheckCircle2 className="ml-auto text-primary" size={24} />}
-                </button>
-              ))}
-            </div>
-            <button 
-              onClick={nextStep}
-              className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-2xl shadow-xl shadow-primary/20 transition-all flex items-center justify-center gap-2 group text-lg"
-            >
-              Continue
-              <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-            </button>
-          </motion.div>
-        );
-
-      case 5:
-        return (
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="w-full max-w-lg"
-          >
-            <h2 className="text-3xl font-bold mb-2">Create your account</h2>
-            <p className="text-text-muted mb-8 text-lg">Secure your personalized relocation plan.</p>
-            <div className="space-y-4 mb-6">
-              <button className="w-full py-4 border-2 border-gray-100 rounded-2xl flex items-center justify-center gap-3 hover:bg-gray-50 transition-colors font-semibold shadow-sm">
-                <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5" />
-                Continue with Google
-              </button>
-              <div className="flex items-center gap-4 text-gray-300">
-                <div className="flex-1 h-[1px] bg-gray-200"></div>
-                <span className="text-sm font-medium text-text-muted">or use email</span>
-                <div className="flex-1 h-[1px] bg-gray-200"></div>
-              </div>
-              <div className="space-y-2">
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"><Mail size={18} /></span>
-                  <input type="email" placeholder="email@example.com" className="w-full bg-white border border-gray-200 rounded-2xl py-3.5 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"><Lock size={18} /></span>
-                  <input type="password" placeholder="Password" className="w-full bg-white border border-gray-200 rounded-2xl py-3.5 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" />
-                </div>
-              </div>
-            </div>
-            <button 
-              onClick={nextStep}
-              className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-2xl shadow-xl shadow-primary/20 transition-all flex items-center justify-center gap-2 group text-lg"
-            >
-              Finish Setup
-              <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-            </button>
-          </motion.div>
-        );
-
-      case 6:
-        return (
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-lg text-center"
-          >
-            <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-primary/20">
-              <Sparkles className="text-white" size={40} />
-            </div>
-            <h2 className="font-serif text-3xl font-bold mb-4 text-ink">Your relocation plan is ready!</h2>
-            <p className="text-gray-500 mb-8 text-lg">We've identified 7 key tasks for your move to {formData.city || 'Portugal'}.</p>
-            
-            <div className="bg-white rounded-[20px] border border-organic shadow-soft p-8 text-left mb-10 overflow-hidden relative">
-              <div className="absolute top-0 left-0 w-2 h-full bg-primary"></div>
-              <h3 className="font-serif font-bold text-lg mb-6 flex items-center gap-2 text-ink">
-                <ChevronLeft size={20} className="rotate-180" /> Top priority steps:
-              </h3>
-              <div className="space-y-6">
-                {[
-                  { step: 1, title: 'Get phone number', desc: 'Required for communication & apps' },
-                  { step: 2, title: 'Get NIF', desc: 'Your essential tax identification' },
-                  { step: 3, title: 'Open bank account', desc: 'Secure your finances locally' }
-                ].map((item) => (
-                  <div key={item.step} className="flex gap-4">
-                    <div className="w-8 h-8 rounded-lg bg-primary-light flex items-center justify-center text-primary font-bold shrink-0">
-                      {item.step}
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-ink">{item.title}</h4>
-                      <p className="text-sm text-gray-500">{item.desc}</p>
-                    </div>
-                  </div>
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-ink">What brings you to Portugal?</h3>
+              <div className="grid grid-cols-3 gap-3">
+                {['Study', 'Work', 'Relocation'].map(m => (
+                  <button 
+                    key={m}
+                    onClick={() => updateForm({ motivation: m as any })}
+                    className={`p-4 rounded-2xl border-2 font-bold transition-all h-24 flex items-center justify-center text-center ${formData.motivation === m ? 'border-primary bg-primary/5 text-primary' : 'border-gray-100 hover:border-primary/20'}`}
+                  >
+                    {m}
+                  </button>
                 ))}
               </div>
             </div>
 
             <button 
-              onClick={() => onComplete({ ...formData, isOnboarded: true } as UserProfile)}
-              className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-xl shadow-xl shadow-primary/30 transition-all flex items-center justify-center gap-2 group text-lg"
+              onClick={nextStep}
+              disabled={!formData.motivation}
+              className="w-full bg-primary hover:bg-primary-dark disabled:bg-gray-200 text-white font-bold py-4 rounded-2xl shadow-xl shadow-primary/20 transition-all flex items-center justify-center gap-2 group"
             >
-              Go to Dashboard
+              Continue
               <ArrowRight className="group-hover:translate-x-1 transition-transform" />
             </button>
           </motion.div>
         );
+
+      case 3: // What is your visa status?
+        return (
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="w-full max-w-lg space-y-8"
+          >
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-ink">What is your visa status?</h3>
+              <div className="space-y-3">
+                {[
+                  { id: 'Approved', label: 'I already have my visa ✅' },
+                  { id: 'In process', label: 'I’m in the process' },
+                  { id: 'Not started', label: 'I haven’t started yet / not sure' }
+                ].map(v => (
+                  <button 
+                    key={v.id}
+                    onClick={() => updateForm({ visaStatus: v.id })}
+                    className={`w-full p-6 rounded-2xl border-2 font-bold text-left transition-all flex items-center justify-between ${formData.visaStatus === v.id ? 'border-primary bg-primary/5 text-primary shadow-sm' : 'border-gray-100 hover:border-primary/20'}`}
+                  >
+                    {v.label}
+                    {formData.visaStatus === v.id && <CheckCircle2 size={24} className="text-primary" />}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <button 
+              onClick={nextStep}
+              disabled={!formData.visaStatus}
+              className="w-full bg-primary hover:bg-primary-dark disabled:bg-gray-200 text-white font-bold py-4 rounded-2xl shadow-xl shadow-primary/20 transition-all flex items-center justify-center gap-2 group"
+            >
+              Continue
+              <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+            </button>
+          </motion.div>
+        );
+
+      case 4: // Conditional Step
+        if (formData.visaStatus === 'Approved') {
+          return (
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="w-full max-w-lg space-y-6"
+            >
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold text-ink">Trip Details</h2>
+                <p className="text-text-muted">Tell us about your arrival plans.</p>
+              </div>
+
+              <div className="space-y-4">
+                <div className="space-y-1.5">
+                  <label className="text-sm font-semibold text-ink ml-1">Expected Arrival Date</label>
+                  <input 
+                    type="date" 
+                    className="w-full bg-white border border-gray-200 rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                    value={formData.arrivalDate}
+                    onChange={(e) => updateForm({ arrivalDate: e.target.value })}
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-sm font-semibold text-ink ml-1">City of Destination</label>
+                  <select 
+                    className="w-full bg-white border border-gray-200 rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none"
+                    value={formData.city}
+                    onChange={(e) => updateForm({ city: e.target.value })}
+                  >
+                    <option value="">Select City</option>
+                    <option value="Lisbon">Lisbon</option>
+                    <option value="Porto">Porto</option>
+                    <option value="Coimbra">Coimbra</option>
+                    <option value="Braga">Braga</option>
+                    <option value="Faro">Faro</option>
+                  </select>
+                </div>
+
+                {formData.motivation === 'Study' && (
+                  <div className="space-y-1.5">
+                    <label className="text-sm font-semibold text-ink ml-1">University (Optional)</label>
+                    <input 
+                      type="text" 
+                      placeholder="Search your university..."
+                      className="w-full bg-white border border-gray-200 rounded-2xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                      value={formData.university}
+                      onChange={(e) => updateForm({ university: e.target.value })}
+                    />
+                  </div>
+                )}
+              </div>
+
+              <button 
+                onClick={() => onComplete({ ...formData, isOnboarded: true } as any)}
+                className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-2xl shadow-xl shadow-primary/20 transition-all flex items-center justify-center gap-2 group"
+              >
+                Finish Setup
+                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+              </button>
+            </motion.div>
+          );
+        } else {
+          return (
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="w-full max-w-lg space-y-8"
+            >
+              <div className="space-y-4">
+                <h2 className="text-3xl font-bold text-ink">Let’s help you get started</h2>
+                <div className="bg-primary/5 p-6 rounded-3xl border border-primary/10">
+                  <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Recommended Visa</p>
+                  <p className="text-lg font-bold text-ink">{formData.motivation === 'Study' ? 'D4 Study Visa' : formData.motivation === 'Work' ? 'D1 Work Visa' : 'D7 Relocation Visa'}</p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <p className="text-sm font-bold text-ink uppercase tracking-widest">Key Documents Checklist</p>
+                <div className="grid grid-cols-1 gap-4">
+                  {[
+                    { title: 'Valid Passport', desc: 'Must be valid for 6+ months', icon: '🛂' },
+                    { title: 'Criminal Record', desc: 'Apostilled within 3 months', icon: '📝' },
+                    { title: 'Proof of Funds', desc: 'Sufficient financial means', icon: '💰' },
+                    { title: 'Health Insurance', desc: 'EU-valid private insurance', icon: '🏥' }
+                  ].map(item => (
+                    <div key={item.title} className="flex items-center gap-4 p-5 bg-white rounded-3xl border border-gray-100 shadow-sm hover:border-primary/20 transition-all">
+                      <div className="w-12 h-12 rounded-2xl bg-primary/5 flex items-center justify-center text-xl">
+                        {item.icon}
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm font-bold text-ink">{item.title}</p>
+                        <p className="text-[10px] text-text-muted uppercase tracking-wider">{item.desc}</p>
+                      </div>
+                      <div className="w-6 h-6 rounded-full border-2 border-gray-100 flex items-center justify-center shrink-0">
+                        <div className="w-2.5 h-2.5 rounded-full bg-gray-100"></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="p-4 bg-blue-50 rounded-2xl border border-blue-100">
+                <p className="text-xs font-bold text-blue-800 mb-1">💡 Preparation Tip</p>
+                <p className="text-xs text-blue-700 leading-relaxed">
+                  Start gathering your criminal record certificate early, as it often requires apostille and can take 2-4 weeks.
+                </p>
+              </div>
+
+              <button 
+                onClick={() => onComplete({ ...formData, isOnboarded: true } as any)}
+                className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-2xl shadow-xl shadow-primary/20 transition-all flex items-center justify-center gap-2 group"
+              >
+                Start My Visa Preparation
+                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+              </button>
+            </motion.div>
+          );
+        }
 
       default:
         return null;
@@ -350,37 +337,68 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-6 relative overflow-hidden">
-      {/* Background blobs */}
-      <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[120px] -z-10 animate-pulse"></div>
-      <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent/5 rounded-full blur-[120px] -z-10"></div>
-
-      {step > 1 && step < 6 && (
-        <button 
-          onClick={prevStep}
-          className="absolute top-8 left-8 p-3 rounded-2xl bg-white border border-gray-100 text-text-muted hover:text-primary transition-colors flex items-center gap-2 font-semibold shadow-sm"
-        >
-          <ChevronLeft size={20} />
-          Back
-        </button>
-      )}
-
-      {step > 1 && (
-        <div className="absolute top-8 right-8 flex items-center gap-2">
-          {[1, 2, 3, 4, 5, 6].map((it) => (
-            <div 
-              key={it} 
-              className={`h-2 rounded-full transition-all duration-500 ${
-                it === step ? 'w-8 bg-primary' : it < step ? 'w-2 bg-primary/40' : 'w-2 bg-gray-200'
-              }`}
-            ></div>
-          ))}
+    <div className="min-h-screen bg-white flex overflow-hidden">
+      {/* LEFT SIDE (Visual Panel) */}
+      <div className="hidden lg:block lg:w-1/2 relative bg-[#122A21] overflow-hidden">
+        <img 
+          src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&q=80&w=1600" 
+          alt="Porto Riverside Architecture" 
+          className="w-full h-full object-cover"
+          style={{ objectPosition: 'center' }}
+        />
+        {/* Gradient Overlay for Readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent"></div>
+        <div className="absolute inset-0 bg-[#122A21]/20"></div>
+        
+        <div className="absolute top-12 left-12">
+          <Logo className="scale-100 origin-left" variant="white" />
         </div>
-      )}
 
-      <AnimatePresence mode="wait">
-        {renderStep()}
-      </AnimatePresence>
+        <div className="absolute bottom-32 left-12 max-w-2xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            <h1 className="text-4xl font-bold text-white mb-4 tracking-tight font-serif leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.2)] whitespace-nowrap">
+              Welcome to <span className="italic text-white">Digital Gateway</span>
+            </h1>
+            <p className="text-lg text-white/90 leading-relaxed font-serif font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)] whitespace-nowrap">
+              Your all-in-one guide to settling in Portugal simplified, step by step.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* RIGHT SIDE (Form Panel) */}
+      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-6 sm:p-12 md:p-24 bg-background relative">
+        {step > 1 && (
+          <button 
+            onClick={prevStep}
+            className="absolute top-12 left-12 p-3 rounded-2xl bg-white border border-gray-100 text-text-muted hover:text-primary transition-colors flex items-center gap-2 font-semibold shadow-sm"
+          >
+            <ChevronLeft size={20} />
+            Back
+          </button>
+        )}
+
+        <div className="w-full max-w-lg">
+          <div className="flex items-center gap-2 mb-12">
+            {[1, 2, 3, 4].map((it) => (
+              <div 
+                key={it} 
+                className={`h-1 rounded-full transition-all duration-500 flex-1 ${
+                  it === step ? 'bg-primary' : it < step ? 'bg-primary/40' : 'bg-gray-100'
+                }`}
+              ></div>
+            ))}
+          </div>
+
+          <AnimatePresence mode="wait">
+            {renderStep()}
+          </AnimatePresence>
+        </div>
+      </div>
     </div>
   );
 }

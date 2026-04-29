@@ -168,21 +168,45 @@ export default function Profile({ user, onUpdateUser, onLogout }: ProfileProps) 
                 onChange={(v) => setEditData({...editData, nationality: v})}
                 icon={Globe}
               />
-              <Field 
-                label="University" 
-                value={editData.university} 
-                isEditing={isEditing} 
-                onChange={(v) => setEditData({...editData, university: v})}
-                icon={GraduationCap}
-              />
+              {editData.motivation === 'Study' && (
+                <Field 
+                  label="University" 
+                  value={editData.university} 
+                  isEditing={isEditing} 
+                  onChange={(v) => setEditData({...editData, university: v})}
+                  icon={GraduationCap}
+                />
+              )}
               <Field 
                 label="Arrival Date" 
                 value={editData.arrivalDate} 
                 type="date"
                 isEditing={isEditing} 
-                onChange={(v) => setEditData({...editData, arrivalDate: v})}
+                onChange={(v: string) => setEditData({...editData, arrivalDate: v})}
                 icon={Calendar}
               />
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest px-1 flex items-center gap-1.5">
+                  <User size={12} />
+                  Gender
+                </label>
+                <div className={`p-4 rounded-2xl border transition-all ${isEditing ? 'bg-gray-50 border-primary/20' : 'bg-white border-teal-50 shadow-sm'}`}>
+                  {!isEditing ? (
+                    <p className="font-bold text-ink">{user.gender || 'Not specified'}</p>
+                  ) : (
+                    <select 
+                      value={editData.gender}
+                      onChange={(e) => setEditData({...editData, gender: e.target.value})}
+                      className="w-full bg-transparent outline-none font-bold text-primary appearance-none"
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Prefer not to say">Prefer not to say</option>
+                    </select>
+                  )}
+                </div>
+              </div>
             </div>
           </section>
 
@@ -201,7 +225,7 @@ export default function Profile({ user, onUpdateUser, onLogout }: ProfileProps) 
                   </div>
                   <div>
                     <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Email Address</p>
-                    <p className="font-bold text-ink">{user.name.toLowerCase().replace(' ', '.')}@example.com</p>
+                    <p className="font-bold text-ink">{user.email || `${user.name.toLowerCase().replace(' ', '.')}@example.com`}</p>
                   </div>
                 </div>
                 <button className="text-primary font-bold text-sm hover:underline">Change</button>
@@ -238,10 +262,9 @@ export default function Profile({ user, onUpdateUser, onLogout }: ProfileProps) 
                   onChange={(e) => setEditData({...editData, motivation: e.target.value})}
                   className="w-full bg-gray-50 border border-gray-100 rounded-2xl p-4 font-bold text-ink outline-none focus:ring-2 focus:ring-primary/20 appearance-none disabled:opacity-80"
                 >
-                  <option value="Study">Study in Portugal</option>
-                  <option value="Work">Work in Portugal</option>
-                  <option value="Digital Nomad">Digital Nomad</option>
-                  <option value="Retirement">Retirement</option>
+                  <option value="Study">Study</option>
+                  <option value="Work">Work</option>
+                  <option value="Relocation">Relocation</option>
                 </select>
               </div>
               <div className="space-y-2">

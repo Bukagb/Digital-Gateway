@@ -58,23 +58,40 @@ export default function Community({ groups: initialGroups, user }: CommunityProp
   ];
 
   // Dynamically update groups to match user data
-  const groups = initialGroups.map(group => {
-    if (group.matchType === 'Same University') {
-      return {
-        ...group,
-        name: user.university || 'Your University',
-        description: `Official group for ${user.university || 'your university'} international students.`
-      };
-    }
-    if (group.matchType === 'Same Nationality') {
-      return {
-        ...group,
-        name: `${user.nationality || 'Your Country'} in ${user.city || 'Portugal'}`,
-        description: `A space for ${user.nationality || 'students from your country'} studying in ${user.city || 'the city'}.`
-      };
-    }
-    return group;
-  });
+  const groups = initialGroups
+    .filter(group => {
+      if (group.matchType === 'Same University' && user.motivation !== 'Study') return false;
+      return true;
+    })
+    .map(group => {
+      if (group.matchType === 'Same Arrival') {
+        const arrival = user.arrivalDate ? new Date(user.arrivalDate) : null;
+        // Handle potential invalid date or missing date
+        const isValid = arrival && !isNaN(arrival.getTime());
+        const month = isValid ? arrival!.toLocaleString('default', { month: 'long' }) : 'September';
+        const year = isValid ? arrival!.getFullYear() : '2024';
+        return {
+          ...group,
+          name: `Arriving in ${month} ${year}`,
+          description: `Connect with others landing in Portugal in ${month}.`
+        };
+      }
+      if (group.matchType === 'Same University') {
+        return {
+          ...group,
+          name: user.university || 'Your University',
+          description: `Official group for ${user.university || 'your university'} international students.`
+        };
+      }
+      if (group.matchType === 'Same Nationality') {
+        return {
+          ...group,
+          name: `${user.nationality || 'Your Country'} in ${user.city || 'Portugal'}`,
+          description: `A space for ${user.nationality || 'students from your country'} studying in ${user.city || 'the city'}.`
+        };
+      }
+      return group;
+    });
 
   const handleJoinGroup = (groupId: string) => {
     if (!joinedGroups.includes(groupId)) {

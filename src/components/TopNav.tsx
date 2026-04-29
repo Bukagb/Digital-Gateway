@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Bell, Search, Globe, ChevronDown, Check, Clock, MessageSquare, Info } from 'lucide-react';
 import { UserProfile } from '../types';
 import { motion, AnimatePresence } from 'motion/react';
+import Logo from './Logo';
 
 interface TopNavProps {
   user: UserProfile;

@@ -24,6 +24,9 @@ export interface UserProfile {
   motivation: string;
   language: 'English' | 'Portuguese' | 'Spanish';
   isOnboarded: boolean;
+  visaStatus?: string;
+  gender?: string;
+  email?: string;
 }
 
 export interface Job {

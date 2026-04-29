@@ -50,7 +50,7 @@ export default function Sidebar({ currentPage, setCurrentPage, user, onLogout }:
     <div className="w-[240px] h-full bg-white border-r border-[#EEE9E0] flex flex-col py-8 z-40 relative">
       <Logo className="px-8 mb-10" />
 
-      <nav className="flex-1 space-y-1">
+      <nav className="mt-4 flex-1 space-y-1">
         <div className="px-4 mb-4">
           <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-4 mb-2">Main Menu</p>
           {menuItems.map((item) => (

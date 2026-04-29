@@ -5,7 +5,8 @@ import {
   AlertCircle, 
   CheckCircle2, 
   Lock,
-  ArrowUpRight
+  ArrowUpRight,
+  Home
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Task, UserProfile } from '../types';
@@ -22,10 +23,27 @@ export default function Dashboard({ user, tasks, onNavigateToTask, onNavigateToP
   const progressPercent = Math.round((completedTasks / tasks.length) * 100);
   
   const nextTask = tasks.find(t => t.status === 'Not Started' || t.status === 'In Progress');
-  const lockedTasks = tasks.filter(t => t.status === 'Locked');
+  
+  // Logic for Housing Banner (Arrival within 1-3 months)
+  const isArrivalSoon = React.useMemo(() => {
+    if (!user.arrivalDate) return false;
+    const arrival = new Date(user.arrivalDate);
+    const now = new Date();
+    const diffTime = arrival.getTime() - now.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays >= 0 && diffDays <= 90;
+  }, [user.arrivalDate]);
+
+  const hasVisa = user.visaStatus === 'Approved';
+
+  const smartMatches = [
+    ...(user.motivation === 'Study' ? [{ label: 'Same University', count: 12, icon: '🎓' }] : []),
+    { label: 'Same Arrival Month', count: 45, icon: '📅' },
+    { label: 'Same Nationality', count: 8, icon: '🌍' },
+  ];
 
   return (
-    <div className="space-y-10 max-w-6xl mx-auto py-6">
+    <div className="space-y-10 w-full mx-auto py-6">
       {/* Header */}
       <header className="flex justify-between items-center mb-8">
         <div>
@@ -33,6 +51,50 @@ export default function Dashboard({ user, tasks, onNavigateToTask, onNavigateToP
           <p className="text-gray-500">You're on track for your move to {user.city || 'Portugal'}.</p>
         </div>
       </header>
+
+      {/* Pre-arrival Banner - ONLY show if visa approved */}
+      {hasVisa && (
+        <section className="bg-[#122A21] text-white rounded-[2rem] p-8 relative overflow-hidden group shadow-2xl animate-in fade-in slide-in-from-top-4 duration-700">
+          <div className="absolute top-0 right-0 w-[500px] h-full bg-white/0.02 skew-x-[-15deg] translate-x-32 group-hover:translate-x-24 transition-transform duration-1000"></div>
+          
+          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+             <div className="flex-1">
+               <div className="flex items-center gap-4 mb-4">
+                 <span className="px-3 py-1 bg-[#007055] text-white text-[10px] font-black rounded-full uppercase tracking-widest">Pre-arrival Setup</span>
+                 <span className="text-white/60 text-xs font-serif italic tracking-wide">Save time, reduce stress</span>
+               </div>
+               <h2 className="text-3xl font-bold mb-4 tracking-tight font-serif leading-tight">
+                 Get everything ready before you arrive.
+               </h2>
+               <p className="text-white/60 text-sm max-w-xl leading-relaxed">
+                 Don't wait until you land. Set up your <span className="text-white font-bold underline decoration-[#007055] decoration-2 underline-offset-4 cursor-pointer">NIF</span>, <span className="text-white font-bold underline decoration-[#007055] decoration-2 underline-offset-4 cursor-pointer">Bank Account</span>, and <span className="text-white font-bold underline decoration-[#007055] decoration-2 underline-offset-4 cursor-pointer">SIM Card</span> today through our Assisted Service flow.
+               </p>
+             </div>
+             
+             <div className="flex flex-col items-center gap-5 shrink-0">
+                <button 
+                  onClick={() => onNavigateToPage('journey')}
+                  className="bg-white text-[#122A21] font-black px-7 py-3.5 rounded-xl shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center gap-2 text-sm group/btn"
+                >
+                  Start Pre-arrival Setup <ArrowRight size={18} className="transition-transform group-hover/btn:translate-x-1" />
+                </button>
+                
+                <div className="flex items-center gap-3">
+                  <div className="flex -space-x-3">
+                    {[
+                      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100',
+                      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100',
+                      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100'
+                    ].map((url, i) => (
+                      <img key={i} src={url} className="w-7 h-7 rounded-full border-2 border-[#122A21] object-cover" />
+                    ))}
+                  </div>
+                  <p className="text-[10px] text-white/40 font-black uppercase tracking-widest">1,200+ students set up early</p>
+                </div>
+             </div>
+          </div>
+        </section>
+      )}
 
       {/* Snapshot */}
       <section className="grid grid-cols-1 md:grid-cols-12 gap-6">
@@ -82,6 +144,85 @@ export default function Dashboard({ user, tasks, onNavigateToTask, onNavigateToP
         </div>
       </section>
 
+      {/* Smart Matches */}
+      <section className="space-y-6">
+        <div className="flex items-center justify-between px-2">
+          <h3 className="font-serif text-xl font-bold">Smart Matches for You</h3>
+          <button onClick={() => onNavigateToPage('community')} className="text-sm text-primary font-bold hover:underline">View Community</button>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {smartMatches.map((match, i) => (
+            <div key={i} className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-soft flex items-center gap-4 group hover:border-primary/20 transition-all cursor-pointer">
+              <div className="w-12 h-12 rounded-2xl bg-primary/5 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                {match.icon}
+              </div>
+              <div>
+                <p className="text-sm font-bold text-ink">{match.label}</p>
+                <p className="text-xs text-gray-500">{match.count} members found</p>
+              </div>
+              <ArrowUpRight size={16} className="ml-auto text-gray-300 group-hover:text-primary transition-colors" />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Housing Recommendation Card */}
+      <section className="mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        {hasVisa ? (
+          <div className="bg-emerald-50/50 border border-emerald-100 rounded-[2.5rem] p-8 relative overflow-hidden group shadow-sm flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="absolute top-6 right-8 bg-emerald-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-sm z-20">
+              Recommended
+            </div>
+            <div className="flex gap-8 items-center flex-1 relative z-10">
+              <div className="w-20 h-20 bg-emerald-100/50 text-emerald-600 rounded-[2rem] flex items-center justify-center shadow-inner shrink-0 scale-110 border border-emerald-100">
+                <Home size={40} strokeWidth={1.5} />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-ink mb-2">Find a place before you arrive</h3>
+                <p className="text-emerald-800/60 text-base max-w-xl leading-relaxed font-medium">
+                  Secure your accommodation early and avoid last-minute stress. Explore trusted housing options tailored for students and newcomers.
+                </p>
+              </div>
+            </div>
+            <button 
+              onClick={() => onNavigateToTask('housing-search')}
+              className="bg-emerald-600 text-white font-bold px-10 py-4 rounded-2xl hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-200 shrink-0 flex items-center gap-3 group/btn relative z-10"
+            >
+              Browse Housing <ArrowRight size={20} className="group-hover/btn:translate-x-1 transition-transform" />
+            </button>
+
+            {/* Decorative background elements */}
+            <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-emerald-100/30 rounded-full blur-3xl group-hover:bg-emerald-100/50 transition-colors" />
+            <div className="absolute -left-10 -top-10 w-32 h-32 bg-emerald-200/20 rounded-full blur-2xl" />
+          </div>
+        ) : !hasVisa ? (
+          <div className="bg-white border border-gray-100 rounded-[2.5rem] p-8 relative overflow-hidden shadow-soft flex flex-col md:flex-row items-center justify-between gap-8 group">
+            <div className="flex gap-8 items-center flex-1">
+              <div className="w-20 h-20 bg-gray-50 text-gray-300 rounded-[2rem] flex items-center justify-center shadow-inner shrink-0 border border-gray-100">
+                <div className="relative">
+                  <Home size={36} strokeWidth={1.5} />
+                  <div className="absolute -bottom-1 -right-1 bg-white p-1 rounded-full shadow-sm text-gray-400">
+                    <Lock size={14} />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-ink mb-2">Plan your housing early</h3>
+                <p className="text-gray-500 text-base max-w-xl leading-relaxed">
+                  Once your visa is approved, you’ll be able to explore housing options and secure a place before arrival.
+                </p>
+              </div>
+            </div>
+            <button 
+              onClick={() => onNavigateToTask('housing-search')}
+              className="bg-gray-100 text-gray-600 font-bold px-10 py-4 rounded-2xl hover:bg-gray-200 transition-all shrink-0"
+            >
+              Learn More
+            </button>
+          </div>
+        ) : null}
+      </section>
+
       {/* Main Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-7 space-y-6">
@@ -93,32 +234,43 @@ export default function Dashboard({ user, tasks, onNavigateToTask, onNavigateToP
           </div>
           
           <div className="space-y-4">
-            {tasks.slice(0, 3).map((task) => (
-              <div 
-                key={task.id} 
-                onClick={() => task.status !== 'Locked' && onNavigateToTask(task.id)}
-                className={`bg-white p-5 rounded-2xl border border-organic shadow-soft flex items-center gap-5 transition-all cursor-pointer hover:border-primary/20 ${task.status === 'Locked' ? 'opacity-50' : ''}`}
-              >
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl ${
-                  task.status === 'Completed' ? 'bg-emerald-50' : 
-                  task.status === 'In Progress' ? 'bg-orange-50 font-bold border-l-4 border-l-accent rounded-l-none' : 
-                  'bg-gray-50'
-                }`}>
-                  {task.icon === 'Phone' ? '📱' : task.icon === 'FileText' ? '📄' : task.icon === 'Landmark' ? '🏦' : '📝'}
-                </div>
-                <div className="flex-1">
-                  <div className="font-bold text-ink">{task.title}</div>
-                  <div className="text-xs text-gray-500">{task.description}</div>
-                </div>
-                <div className={`px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest ${
-                  task.status === 'Completed' ? 'bg-emerald-50 text-emerald-600' :
-                  task.status === 'In Progress' ? 'bg-orange-50 text-accent' :
-                  'bg-gray-100 text-gray-500'
-                }`}>
-                  {task.status}
-                </div>
+            {!hasVisa && (
+              <div className="p-4 bg-amber-50 border border-amber-100 rounded-2xl flex gap-3 animate-in fade-in slide-in-from-left-4">
+                <AlertCircle size={20} className="text-amber-600 shrink-0" />
+                <p className="text-xs text-amber-800 leading-relaxed font-medium">
+                  You’ll need a valid visa before applying for NIF or starting certain assisted services.
+                </p>
               </div>
-            ))}
+            )}
+            {tasks.slice(0, 3).map((task) => {
+              const isDisabled = !hasVisa && (task.id === 'nif' || task.id === 'bank-account');
+              return (
+                <div 
+                  key={task.id} 
+                  onClick={() => !isDisabled && task.status !== 'Locked' && onNavigateToTask(task.id)}
+                  className={`bg-white p-5 rounded-2xl border border-organic shadow-soft flex items-center gap-5 transition-all cursor-pointer hover:border-primary/20 ${task.status === 'Locked' || isDisabled ? 'opacity-50 grayscale' : ''} ${isDisabled ? 'cursor-not-allowed' : ''}`}
+                >
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl ${
+                    task.status === 'Completed' ? 'bg-emerald-50' : 
+                    task.status === 'In Progress' ? 'bg-orange-50 font-bold border-l-4 border-l-accent rounded-l-none' : 
+                    'bg-gray-50'
+                  }`}>
+                    {task.icon === 'Phone' ? '📱' : task.icon === 'FileText' ? '📄' : task.icon === 'Landmark' ? '🏦' : '📝'}
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-bold text-ink">{task.title}</div>
+                    <div className="text-xs text-gray-500">{task.description}</div>
+                  </div>
+                  <div className={`px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest ${
+                    task.status === 'Completed' ? 'bg-emerald-50 text-emerald-600' :
+                    task.status === 'In Progress' ? 'bg-orange-50 text-accent' :
+                    'bg-gray-100 text-gray-500'
+                  }`}>
+                    {isDisabled ? 'Visa Required' : task.status}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
