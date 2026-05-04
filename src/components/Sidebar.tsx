@@ -10,14 +10,15 @@ import {
   ChevronRight,
   User,
   LogOut,
-  X
+  X,
+  Home
 } from 'lucide-react';
 import Logo from './Logo';
 import { motion, AnimatePresence } from 'motion/react';
 
 import { UserProfile } from '../types';
 
-export type PageId = 'dashboard' | 'journey' | 'community' | 'resources' | 'jobs' | 'profile' | 'help' | 'task-detail' | 'settings';
+export type PageId = 'dashboard' | 'journey' | 'housing' | 'community' | 'resources' | 'jobs' | 'profile' | 'help' | 'task-detail' | 'settings';
 
 interface SidebarProps {
   currentPage: PageId;
@@ -32,6 +33,7 @@ export default function Sidebar({ currentPage, setCurrentPage, user, onLogout }:
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
     { id: 'journey', label: 'My Journey', icon: Map },
+    { id: 'housing', label: 'Housing', icon: Home },
     { id: 'community', label: 'Community', icon: Users },
     { id: 'jobs', label: 'Jobs', icon: Briefcase },
     { id: 'resources', label: 'Resources', icon: ExternalLink },

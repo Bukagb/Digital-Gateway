@@ -5,6 +5,7 @@ import AIAssistant from './components/AIAssistant';
 import Onboarding from './components/Onboarding';
 import Dashboard from './components/Dashboard';
 import MyJourney from './components/MyJourney';
+import Housing from './components/Housing';
 import TaskDetail from './components/TaskDetail';
 import Community from './components/Community';
 import Jobs from './components/Jobs';
@@ -111,6 +112,8 @@ export default function App() {
         );
       case 'journey':
         return <MyJourney tasks={tasks} onSelectTask={handleSelectTask} />;
+      case 'housing':
+        return <Housing />;
       case 'task-detail':
         return selectedTaskId ? (
           <TaskDetail 

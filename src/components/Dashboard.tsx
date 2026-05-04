@@ -168,59 +168,32 @@ export default function Dashboard({ user, tasks, onNavigateToTask, onNavigateToP
 
       {/* Housing Recommendation Card */}
       <section className="mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
-        {hasVisa ? (
-          <div className="bg-emerald-50/50 border border-emerald-100 rounded-[2.5rem] p-8 relative overflow-hidden group shadow-sm flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="absolute top-6 right-8 bg-emerald-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-sm z-20">
-              Recommended
+        <div className="bg-emerald-50/50 border border-emerald-100 rounded-[2.5rem] p-8 relative overflow-hidden group shadow-sm flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="absolute top-6 right-8 bg-emerald-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-sm z-20">
+            Housing
+          </div>
+          <div className="flex gap-8 items-center flex-1 relative z-10">
+            <div className="w-20 h-20 bg-emerald-100/50 text-emerald-600 rounded-[2rem] flex items-center justify-center shadow-inner shrink-0 scale-110 border border-emerald-100">
+              <Home size={40} strokeWidth={1.5} />
             </div>
-            <div className="flex gap-8 items-center flex-1 relative z-10">
-              <div className="w-20 h-20 bg-emerald-100/50 text-emerald-600 rounded-[2rem] flex items-center justify-center shadow-inner shrink-0 scale-110 border border-emerald-100">
-                <Home size={40} strokeWidth={1.5} />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-ink mb-2">Find a place before you arrive</h3>
-                <p className="text-emerald-800/60 text-base max-w-xl leading-relaxed font-medium">
-                  Secure your accommodation early and avoid last-minute stress. Explore trusted housing options tailored for students and newcomers.
-                </p>
-              </div>
+            <div>
+              <h3 className="text-2xl font-bold text-ink mb-2">Find a place before you arrive</h3>
+              <p className="text-emerald-800/60 text-base max-w-xl leading-relaxed font-medium">
+                Secure your accommodation early and avoid last-minute stress. Browse verified listings suitable for your residence process.
+              </p>
             </div>
-            <button 
-              onClick={() => onNavigateToTask('housing-search')}
-              className="bg-emerald-600 text-white font-bold px-10 py-4 rounded-2xl hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-200 shrink-0 flex items-center gap-3 group/btn relative z-10"
-            >
-              Browse Housing <ArrowRight size={20} className="group-hover/btn:translate-x-1 transition-transform" />
-            </button>
+          </div>
+          <button 
+            onClick={() => onNavigateToPage('housing')}
+            className="bg-emerald-600 text-white font-bold px-10 py-4 rounded-2xl hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-200 shrink-0 flex items-center gap-3 group/btn relative z-10"
+          >
+            Explore Housing <ArrowRight size={20} className="group-hover/btn:translate-x-1 transition-transform" />
+          </button>
 
-            {/* Decorative background elements */}
-            <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-emerald-100/30 rounded-full blur-3xl group-hover:bg-emerald-100/50 transition-colors" />
-            <div className="absolute -left-10 -top-10 w-32 h-32 bg-emerald-200/20 rounded-full blur-2xl" />
-          </div>
-        ) : !hasVisa ? (
-          <div className="bg-white border border-gray-100 rounded-[2.5rem] p-8 relative overflow-hidden shadow-soft flex flex-col md:flex-row items-center justify-between gap-8 group">
-            <div className="flex gap-8 items-center flex-1">
-              <div className="w-20 h-20 bg-gray-50 text-gray-300 rounded-[2rem] flex items-center justify-center shadow-inner shrink-0 border border-gray-100">
-                <div className="relative">
-                  <Home size={36} strokeWidth={1.5} />
-                  <div className="absolute -bottom-1 -right-1 bg-white p-1 rounded-full shadow-sm text-gray-400">
-                    <Lock size={14} />
-                  </div>
-                </div>
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold text-ink mb-2">Plan your housing early</h3>
-                <p className="text-gray-500 text-base max-w-xl leading-relaxed">
-                  Once your visa is approved, you’ll be able to explore housing options and secure a place before arrival.
-                </p>
-              </div>
-            </div>
-            <button 
-              onClick={() => onNavigateToTask('housing-search')}
-              className="bg-gray-100 text-gray-600 font-bold px-10 py-4 rounded-2xl hover:bg-gray-200 transition-all shrink-0"
-            >
-              Learn More
-            </button>
-          </div>
-        ) : null}
+          {/* Decorative background elements */}
+          <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-emerald-100/30 rounded-full blur-3xl group-hover:bg-emerald-100/50 transition-colors" />
+          <div className="absolute -left-10 -top-10 w-32 h-32 bg-emerald-200/20 rounded-full blur-2xl" />
+        </div>
       </section>
 
       {/* Main Grid */}
