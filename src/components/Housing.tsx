@@ -34,82 +34,84 @@ interface HousingListing {
   partnerUrl?: string;
 }
 
+const FALLBACK_HOUSING_IMAGE = "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=800";
+
 const MOCK_LISTINGS: HousingListing[] = [
   {
     id: 'h1',
-    title: 'T1 Apartment – Porto Downtown',
+    title: 'Student Room – Porto Downtown',
     price: 550,
     type: 'Shared apartment',
     city: 'Porto',
-    image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1596276122653-679c5c46b7f0?auto=format&fit=crop&q=80&w=800', // Bedroom
     gallery: [
-      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1556911223-e47974639379?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1596276122653-679c5c46b7f0?auto=format&fit=crop&q=80&w=800', // Bed
+      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800', // Small Living
+      'https://images.unsplash.com/photo-1556911223-e47974639379?auto=format&fit=crop&q=80&w=800', // Kitchen
+      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800', // Clean bath
+      'https://images.unsplash.com/photo-1512915922686-57c11fd9b6b3?auto=format&fit=crop&q=80&w=800', // Exterior
     ],
     verified: true,
     suitableForNIF: true,
     isInternal: true,
-    description: 'Beautifully furnished room in a shared apartment located in the heart of Porto. Perfect for students and digital nomads.'
+    description: 'Realistic shared apartment in the city center. Includes a desk for studying and all essential utilities. You share with 2 other international students.'
   },
   {
     id: 'h2',
-    title: 'Premium Student Studio',
+    title: 'Compact Studio near University',
     price: 750,
     type: 'Studio',
     city: 'Porto',
-    image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=800', // Main
     gallery: [
-      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1507652313519-d451e7a4f1ea?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=800', // Desk view
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800', // Bed area
+      'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&q=80&w=800', // Kitchenette
+      'https://images.unsplash.com/photo-1507652313519-d451e7a4f1ea?auto=format&fit=crop&q=80&w=800', // Bathroom
     ],
     verified: true,
     suitableForNIF: true,
     isInternal: true,
-    description: 'Modern studio with all utilities included. Located near Porto Business School and main universities.'
+    description: 'Private studio for students who prefer personal space. Fully equipped with a private bathroom and kitchenette.'
   },
   {
     id: 'h3',
-    title: 'Cozy Room in Boavista',
+    title: 'Shared Flat Room - Boavista',
     price: 450,
     type: 'Shared apartment',
     city: 'Porto',
-    image: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=800',
     gallery: [
-      'https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&q=80&w=800',
       'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&q=80&w=800',
       'https://images.unsplash.com/photo-1484154218962-0e311a2f6431?auto=format&fit=crop&q=80&w=800',
     ],
     verified: true,
     suitableForNIF: true,
     isInternal: false,
     partnerUrl: 'https://www.uniplaces.com/',
-    description: 'Comfortable room in a quiet residential area. Close to metro systems and shopping centers.'
+    description: 'Simple and affordable room in the residential area of Boavista. Excellent metro connections to all campus locations.'
   },
   {
     id: 'h4',
-    title: 'Modern Residence Single Room',
+    title: 'University Hub Room',
     price: 600,
     type: 'Student residence',
     city: 'Porto',
-    image: 'https://images.unsplash.com/photo-1536376074432-bf132404ad72?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&q=80&w=800',
     gallery: [
-      'https://images.unsplash.com/photo-1536376074432-bf132404ad72?auto=format&fit=crop&q=80&w=800',
       'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&q=80&w=800',
       'https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1536376074432-bf132404ad72?auto=format&fit=crop&q=80&w=800',
     ],
     verified: true,
     suitableForNIF: true,
     isInternal: true,
-    description: 'Exclusive student residence featuring common social areas, gym, and high-speed internet.'
+    description: 'Standard single room in a certified student residence. Includes study areas and shared common rooms.'
   },
   {
     id: 'h5',
-    title: 'T2 Shared - Cedofeita',
+    title: 'Bright Room - Cedofeita',
     price: 500,
     type: 'Shared apartment',
     city: 'Porto',
@@ -117,33 +119,37 @@ const MOCK_LISTINGS: HousingListing[] = [
     gallery: [
        'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&q=80&w=800',
        'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&q=80&w=800',
+       'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=80&w=800',
     ],
     verified: true,
     suitableForNIF: true,
     isInternal: false,
     partnerUrl: 'https://www.idealista.pt/',
-    description: 'Trendy area with lots of cafes and artistic vibes. Room is spacious and gets lots of natural light.'
+    description: 'Traditional Porto apartment room. High ceilings and wooden floors. Located in the artistic quarter.'
   },
   {
     id: 'h6',
-    title: 'Studio Near Ribeira',
+    title: 'Ribeira District Studio',
     price: 900,
     type: 'Studio',
     city: 'Porto',
-    image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1502672023488-70e25813efdf?auto=format&fit=crop&q=80&w=800',
     gallery: [
-      'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=800',
       'https://images.unsplash.com/photo-1502672023488-70e25813efdf?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1556911223-e47974639379?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800',
     ],
     verified: true,
     suitableForNIF: true,
     isInternal: true,
-    description: 'Luxury studio near the historical Ribeira district. Waterfront views and premium amenities.'
+    description: 'Central studio with historic character. Small but efficient layout, perfect for short academic stays.'
   }
 ];
 
+
 function ImageCarousel({ images, id, setExternalIndex, externalIndex }: { images: string[], id: string, setExternalIndex?: (i: number) => void, externalIndex?: number }) {
   const [index, setInternalIndex] = React.useState(0);
+  const [errorIds, setErrorIds] = React.useState<Set<number>>(new Set());
   
   const currentIndex = externalIndex !== undefined ? externalIndex : index;
   const setIndex = setExternalIndex || setInternalIndex;
@@ -152,9 +158,22 @@ function ImageCarousel({ images, id, setExternalIndex, externalIndex }: { images
     if (images.length <= 1 || externalIndex !== undefined) return;
     const interval = setInterval(() => {
       setIndex((currentIndex + 1) % images.length);
-    }, 4000);
+    }, 5000);
     return () => clearInterval(interval);
   }, [images.length, currentIndex, externalIndex, setIndex]);
+
+  // If we have an error for the current index, try to move to the next one
+  const handleImageError = () => {
+    setErrorIds(prev => new Set(prev).add(currentIndex));
+    if (images.length > 1) {
+      setIndex((currentIndex + 1) % images.length);
+    }
+  };
+
+  // If the specific image at index results in error, and it's the only one, show fallback
+  const currentImg = (images[currentIndex] && !errorIds.has(currentIndex)) 
+    ? images[currentIndex] 
+    : FALLBACK_HOUSING_IMAGE;
 
   if (!images || images.length === 0) {
     return (
@@ -176,43 +195,45 @@ function ImageCarousel({ images, id, setExternalIndex, externalIndex }: { images
   };
 
   return (
-    <div className="relative w-full h-full group/carousel">
+    <div className="relative w-full h-full group/carousel bg-gray-50">
       <AnimatePresence mode="wait">
         <motion.img
-          key={images[currentIndex]}
-          src={images[currentIndex]}
+          key={currentImg}
+          src={currentImg}
+          onError={handleImageError}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.4 }}
           className="w-full h-full object-cover"
           referrerPolicy="no-referrer"
+          loading="lazy"
         />
       </AnimatePresence>
 
       {images.length > 1 && (
         <>
-          <div className="absolute inset-0 flex items-center justify-between px-2 opacity-0 group-hover/carousel:opacity-100 transition-opacity">
+          <div className="absolute inset-0 flex items-center justify-between px-2 opacity-0 group-hover/carousel:opacity-100 transition-all pointer-events-none">
             <button 
               onClick={prev}
-              className="w-8 h-8 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/40 transition-colors"
+              className="w-9 h-9 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/40 transition-colors pointer-events-auto shadow-sm"
             >
-              <ChevronRight className="rotate-180" size={16} />
+              <ChevronRight className="rotate-180" size={18} />
             </button>
             <button 
               onClick={next}
-              className="w-8 h-8 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/40 transition-colors"
+              className="w-9 h-9 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/40 transition-colors pointer-events-auto shadow-sm"
             >
-              <ChevronRight size={16} />
+              <ChevronRight size={18} />
             </button>
           </div>
 
-          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 px-4">
+          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 px-4 pointer-events-none">
             {images.map((_, i) => (
               <div 
                 key={i}
-                className={`h-1 transition-all duration-300 rounded-full ${
-                  i === currentIndex ? 'w-6 bg-white' : 'w-1 bg-white/40'
+                className={`h-1.5 transition-all duration-300 rounded-full ${
+                  i === currentIndex ? 'w-6 bg-white shadow-sm' : 'w-1.5 bg-white/40'
                 }`}
               />
             ))}
