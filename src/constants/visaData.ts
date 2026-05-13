@@ -13,7 +13,7 @@ export interface VisaDetail {
 export const VISA_DATA: Record<string, VisaDetail> = {
   Study: {
     id: 'D4',
-    name: 'D4 Study Visa',
+    name: 'Study Visa',
     shortDesc: 'For international students enrolled in Portuguese institutions.',
     highlights: [
       'Initial visa validity: 4 months (2 entries)',

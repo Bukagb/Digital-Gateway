@@ -75,9 +75,9 @@ export default function App() {
     setUser(prev => ({ ...prev, ...data }));
   };
 
-  const handleCompleteOnboarding = (data: UserProfile) => {
+  const handleCompleteOnboarding = (data: UserProfile, targetPage: PageId = 'dashboard') => {
     setUser(data);
-    setCurrentPage('dashboard');
+    setCurrentPage(targetPage);
   };
 
   const handleUpdateTaskStatus = (taskId: string, status: TaskStatus) => {

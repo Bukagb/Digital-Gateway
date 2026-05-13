@@ -25,7 +25,7 @@ import { UserProfile } from '../types';
 import { VISA_DATA } from '../constants/visaData';
 
 interface OnboardingProps {
-  onComplete: (data: UserProfile) => void;
+  onComplete: (data: UserProfile, targetPage?: any) => void;
 }
 
 export default function Onboarding({ onComplete }: OnboardingProps) {
@@ -622,7 +622,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
             <div className="bg-primary/5 p-6 rounded-3xl border border-primary/10 space-y-4">
               <div>
                 <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Visa Category</p>
-                <h4 className="text-2xl font-bold text-ink">{currentVisa.id} {currentVisa.name === 'D4 D4 Study Visa' ? 'D4 Study Visa' : currentVisa.name}</h4>
+                <h4 className="text-2xl font-bold text-ink">{currentVisa.id} {currentVisa.name}</h4>
               </div>
               <ul className="space-y-2 text-sm text-text-muted">
                 {currentVisa.highlights.map((h, i) => (
@@ -702,7 +702,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
 
                 <div className="space-y-3">
                   <button 
-                    onClick={nextStep}
+                    onClick={() => onComplete({ ...formData, isOnboarded: true } as any, 'housing')}
                     className="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-2xl shadow-xl shadow-primary/20 transition-all flex items-center justify-center gap-2 group"
                   >
                     Explore Housing
