@@ -43,13 +43,13 @@ const MOCK_LISTINGS: HousingListing[] = [
     price: 550,
     type: 'Shared apartment',
     city: 'Porto',
-    image: 'https://images.unsplash.com/photo-1596276122653-679c5c46b7f0?auto=format&fit=crop&q=80&w=800', // Bedroom
+    image: 'https://images.unsplash.com/photo-1596276122653-679c5c46b7f0?auto=format&fit=crop&q=80&w=800',
     gallery: [
-      'https://images.unsplash.com/photo-1596276122653-679c5c46b7f0?auto=format&fit=crop&q=80&w=800', // Bed
-      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800', // Small Living
+      'https://images.unsplash.com/photo-1596276122653-679c5c46b7f0?auto=format&fit=crop&q=80&w=800', // Bedroom
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=800', // Living
       'https://images.unsplash.com/photo-1556911223-e47974639379?auto=format&fit=crop&q=80&w=800', // Kitchen
-      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800', // Clean bath
-      'https://images.unsplash.com/photo-1512915922686-57c11fd9b6b3?auto=format&fit=crop&q=80&w=800', // Exterior
+      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800', // Bathroom
+      'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=80&w=800', // Exterior
     ],
     verified: true,
     suitableForNIF: true,
@@ -62,10 +62,10 @@ const MOCK_LISTINGS: HousingListing[] = [
     price: 750,
     type: 'Studio',
     city: 'Porto',
-    image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=800', // Main
+    image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=800',
     gallery: [
       'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&q=80&w=800', // Desk view
-      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800', // Bed area
+      'https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&q=80&w=800', // Bed area
       'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&q=80&w=800', // Kitchenette
       'https://images.unsplash.com/photo-1507652313519-d451e7a4f1ea?auto=format&fit=crop&q=80&w=800', // Bathroom
     ],
@@ -82,12 +82,13 @@ const MOCK_LISTINGS: HousingListing[] = [
     city: 'Porto',
     image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=800',
     gallery: [
-      'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1484154218962-0e311a2f6431?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=800', // Bed
+      'https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&q=80&w=800', // Lounge
+      'https://images.unsplash.com/photo-1484154218962-0e311a2f6431?auto=format&fit=crop&q=80&w=800', // Kitchen
+      'https://images.unsplash.com/photo-1558227691-41ea78d1f631?auto=format&fit=crop&q=80&w=800', // Exterior
     ],
     verified: true,
-    suitableForNIF: true,
+    suitableForNIF: false,
     isInternal: false,
     partnerUrl: 'https://www.uniplaces.com/',
     description: 'Simple and affordable room in the residential area of Boavista. Excellent metro connections to all campus locations.'
@@ -100,9 +101,10 @@ const MOCK_LISTINGS: HousingListing[] = [
     city: 'Porto',
     image: 'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&q=80&w=800',
     gallery: [
-      'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1536376074432-bf132404ad72?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&q=80&w=800', // Room
+      'https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&q=80&w=800', // Study
+      'https://images.unsplash.com/photo-1536376074432-bf132404ad72?auto=format&fit=crop&q=80&w=800', // Lounge
+      'https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&q=80&w=800', // Building
     ],
     verified: true,
     suitableForNIF: true,
@@ -117,9 +119,10 @@ const MOCK_LISTINGS: HousingListing[] = [
     city: 'Porto',
     image: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&q=80&w=800',
     gallery: [
-       'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&q=80&w=800',
-       'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&q=80&w=800',
-       'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=80&w=800',
+       'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&q=80&w=800', // Bedroom
+       'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&q=80&w=800', // Living
+       'https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&q=80&w=800', // Kitchen
+       'https://images.unsplash.com/photo-1464146072230-91cabc968276?auto=format&fit=crop&q=80&w=800', // Street
     ],
     verified: true,
     suitableForNIF: true,
@@ -135,9 +138,11 @@ const MOCK_LISTINGS: HousingListing[] = [
     city: 'Porto',
     image: 'https://images.unsplash.com/photo-1502672023488-70e25813efdf?auto=format&fit=crop&q=80&w=800',
     gallery: [
-      'https://images.unsplash.com/photo-1502672023488-70e25813efdf?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1556911223-e47974639379?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1502672023488-70e25813efdf?auto=format&fit=crop&q=80&w=800', // Interior
+      'https://images.unsplash.com/photo-1502672529157-5aee302a1b14?auto=format&fit=crop&q=80&w=800', // Stone walls
+      'https://images.unsplash.com/photo-1556911261-2125dc5cc08a?auto=format&fit=crop&q=80&w=800', // Kitchenette
+      'https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&q=80&w=800', // Bathroom
+      'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&q=80&w=800', // River view
     ],
     verified: true,
     suitableForNIF: true,

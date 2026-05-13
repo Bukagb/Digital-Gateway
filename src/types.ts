@@ -18,6 +18,7 @@ export interface Task {
 export interface UserProfile {
   name: string;
   nationality: string;
+  applyingFromCountry?: string;
   university: string;
   arrivalDate: string;
   city: string;
@@ -25,8 +26,15 @@ export interface UserProfile {
   language: 'English' | 'Portuguese' | 'Spanish';
   isOnboarded: boolean;
   visaStatus?: string;
+  visaStage?: string;
   gender?: string;
   email?: string;
+  documentsReady?: Record<string, boolean>;
+  accommodationStatus?: string;
+  airportArrivalDetails?: string;
+  remoteWork?: boolean;
+  familyJoining?: boolean;
+  plannedStay?: string;
 }
 
 export interface Job {
