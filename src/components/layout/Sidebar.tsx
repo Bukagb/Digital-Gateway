@@ -13,10 +13,10 @@ import {
   X,
   Home
 } from 'lucide-react';
-import Logo from './Logo';
+import Logo from '../ui/Logo';
 import { motion, AnimatePresence } from 'motion/react';
 
-import { UserProfile } from '../types';
+import { UserProfile } from '../../types';
 
 export type PageId = 'dashboard' | 'journey' | 'housing' | 'community' | 'resources' | 'jobs' | 'profile' | 'help' | 'task-detail' | 'settings';
 

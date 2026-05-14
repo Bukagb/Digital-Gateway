@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import Sidebar, { PageId } from './components/Sidebar';
-import TopNav from './components/TopNav';
-import AIAssistant from './components/AIAssistant';
-import Onboarding from './components/Onboarding';
-import Dashboard from './components/Dashboard';
-import MyJourney from './components/MyJourney';
-import Housing from './components/Housing';
-import TaskDetail from './components/TaskDetail';
-import Community from './components/Community';
-import Jobs from './components/Jobs';
-import Resources from './components/Resources';
-import Profile from './components/Profile';
-import Help from './components/Help';
+import React, { useState, useEffect, useCallback } from 'react';
+import Sidebar, { PageId } from './components/layout/Sidebar';
+import TopNav from './components/layout/TopNav';
+import AIAssistant from './components/ui/AIAssistant';
+import Onboarding from './pages/Onboarding';
+import Dashboard from './pages/Dashboard';
+import MyJourney from './pages/MyJourney';
+import Housing from './pages/Housing';
+import TaskDetail from './pages/TaskDetail';
+import Community from './pages/Community';
+import Jobs from './pages/Jobs';
+import Resources from './pages/Resources';
+import Profile from './pages/Profile';
+import Help from './pages/Help';
 import { UserProfile, Task, TaskStatus } from './types';
 import { INITIAL_TASKS, JOBS, RESOURCES, COMMUNITY_GROUPS } from './constants';
 import { AnimatePresence, motion } from 'motion/react';
@@ -49,9 +49,11 @@ export default function App() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
     
     // Unlock logic
+    let hasChanges = false;
     const updatedTasks = tasks.map(task => {
       // Force unlock bank-account as requested
       if (task.id === 'bank-account' && task.status === 'Locked') {
+        hasChanges = true;
         return { ...task, status: 'Not Started' as TaskStatus };
       }
 
@@ -60,40 +62,41 @@ export default function App() {
           tasks.find(t => t.id === depId)?.status === 'Completed'
         );
         if (dependenciesMet) {
+          hasChanges = true;
           return { ...task, status: 'Not Started' as TaskStatus };
         }
       }
       return task;
     });
     
-    if (JSON.stringify(updatedTasks) !== JSON.stringify(tasks)) {
+    if (hasChanges) {
       setTasks(updatedTasks);
     }
   }, [tasks]);
 
-  const handleUpdateUser = (data: Partial<UserProfile>) => {
+  const handleUpdateUser = useCallback((data: Partial<UserProfile>) => {
     setUser(prev => ({ ...prev, ...data }));
-  };
+  }, []);
 
-  const handleCompleteOnboarding = (data: UserProfile, targetPage: PageId = 'dashboard') => {
+  const handleCompleteOnboarding = useCallback((data: UserProfile, targetPage: PageId = 'dashboard') => {
     setUser(data);
     setCurrentPage(targetPage);
-  };
+  }, []);
 
-  const handleUpdateTaskStatus = (taskId: string, status: TaskStatus) => {
+  const handleUpdateTaskStatus = useCallback((taskId: string, status: TaskStatus) => {
     setTasks(prev => prev.map(t => t.id === taskId ? { ...t, status } : t));
-  };
+  }, []);
 
-  const handleSelectTask = (taskId: string) => {
+  const handleSelectTask = useCallback((taskId: string) => {
     setSelectedTaskId(taskId);
     setCurrentPage('task-detail');
-  };
+  }, []);
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     localStorage.removeItem('user');
     localStorage.removeItem('tasks');
     window.location.reload();
-  };
+  }, []);
 
   if (!user.isOnboarded) {
     return <Onboarding onComplete={handleCompleteOnboarding} />;

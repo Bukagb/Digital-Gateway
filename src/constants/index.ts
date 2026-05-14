@@ -1,4 +1,4 @@
-import { Task, Job, Resource, CommunityGroup } from './types';
+import { Task, Job, Resource, CommunityGroup } from '../types';
 
 export const INITIAL_TASKS: Task[] = [
   {
