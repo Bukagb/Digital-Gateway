@@ -44,7 +44,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
 
   return (
     <OnboardingLayout step={onboardingState.step} prevStep={onboardingState.prevStep}>
-      {renderStep()}
+      {React.cloneElement(renderStep() as React.ReactElement, { key: onboardingState.step })}
     </OnboardingLayout>
   );
 }

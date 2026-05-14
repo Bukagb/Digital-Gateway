@@ -49,8 +49,8 @@ export default function Sidebar({ currentPage, setCurrentPage, user, onLogout }:
   };
 
   return (
-    <div className="w-[240px] h-full bg-white border-r border-[#EEE9E0] flex flex-col py-8 z-40 relative">
-      <Logo className="px-8 mb-10" />
+    <div className="w-[240px] h-full bg-white border-r border-g-100 flex flex-col py-8 z-40 relative">
+      <Logo className="px-8 mb-10" variant="green" />
 
       <nav className="mt-4 flex-1 space-y-1">
         <div className="px-4 mb-4">
@@ -109,7 +109,7 @@ export default function Sidebar({ currentPage, setCurrentPage, user, onLogout }:
 
         <div 
           onClick={() => setCurrentPage('profile')}
-          className="p-4 bg-[#F8F6F2] rounded-[1.5rem] flex items-center gap-3 cursor-pointer hover:bg-gray-100 transition-colors border border-transparent hover:border-gray-200"
+          className="p-4 bg-g-50 rounded-[1.5rem] flex items-center gap-3 cursor-pointer hover:bg-g-100 transition-colors border border-transparent hover:border-g-200"
         >
           <div className="w-10 h-10 rounded-full bg-slate-300 border border-white shrink-0 overflow-hidden shadow-sm">
             <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name || 'sarah'}`} alt="User" />

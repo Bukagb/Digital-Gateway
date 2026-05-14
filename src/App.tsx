@@ -155,7 +155,7 @@ export default function App() {
   };
 
   return (
-    <div className="flex h-screen bg-background overflow-hidden font-sans">
+    <div className="flex h-screen bg-background overflow-hidden font-body">
       <Sidebar 
         currentPage={currentPage} 
         setCurrentPage={setCurrentPage} 

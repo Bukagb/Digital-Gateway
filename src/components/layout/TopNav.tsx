@@ -22,7 +22,7 @@ export default function TopNav({ user, onOpenProfile }: TopNavProps) {
   ];
 
   return (
-    <header className="h-20 bg-white/80 backdrop-blur-md border-b border-teal-50 px-8 flex items-center justify-between sticky top-0 z-30">
+    <header className="h-20 bg-white/80 backdrop-blur-md border-b border-g-100 px-8 flex items-center justify-between sticky top-0 z-30">
       <div className="flex-1 max-w-md">
         <div className="relative group">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-primary transition-colors" size={18} />

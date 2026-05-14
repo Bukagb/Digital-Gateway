@@ -43,7 +43,6 @@ export function Step1AccountSetup(props: StepProps) {
               <option value="">Select Gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
-              <option value="Non-binary">Non-binary</option>
               <option value="Prefer not to say">Prefer not to say</option>
             </select>
           </div>
@@ -111,7 +110,7 @@ export function Step1AccountSetup(props: StepProps) {
       />
 
       <p className="text-center text-sm text-text-muted">
-        Already have an account? <button className="text-primary font-bold hover:underline">Log in</button>
+        Already have an account? <button onClick={() => window.location.href = 'https://pbs.2rock.cloud/login'} className="text-primary font-bold hover:underline">Log in</button>
       </p>
     </motion.div>
   );

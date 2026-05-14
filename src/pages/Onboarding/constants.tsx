@@ -1,8 +1,18 @@
 import React from 'react';
-import { Plane, BookOpen, Briefcase, Users } from 'lucide-react';
+import { 
+  Plane, 
+  BookOpen, 
+  Briefcase, 
+  Users, 
+  CheckCircle2, 
+  Hourglass, 
+  FileText, 
+  Map, 
+  HelpCircle 
+} from 'lucide-react';
 
 export const countries = [
-  "Nigeria", "Brazil", "India", "USA", "UK", "Canada", "Angola", "UAE", "Germany", "France", "Italy", "Spain", "Portugal", "Australia", "China", "Japan"
+  "Nigeria", "Brazil", "India", "USA", "UK", "Canada", "Angola", "UAE", "Germany", "France", "Italy", "Spain", "Portugal", "Australia", "China", "Japan", "Ireland"
 ];
 
 export const filteredCountries = (query: string) => 
@@ -16,11 +26,11 @@ export const motivations = [
 ];
 
 export const visaStages = [
-  { id: 'Approved', title: 'I already have my visa', desc: 'Continue with arrival preparation and settlement steps.', icon: '✅' },
-  { id: 'Applied', title: 'I already applied', desc: 'Track your preparation progress and prepare for arrival.', icon: '⏳' },
-  { id: 'Preparing', title: 'I’m preparing documents', desc: 'Get document guidance and AI-assisted validation.', icon: '📄' },
-  { id: 'Not Started', title: 'I haven’t started yet', desc: 'We’ll help you understand requirements and next steps.', icon: '🗺️' },
-  { id: 'Not Sure', title: 'I’m not sure which visa I need', desc: 'Answer a few questions and get personalized recommendations.', icon: '❓' }
+  { id: 'Approved', title: 'I already have my visa', desc: 'Continue with arrival preparation and settlement steps.', icon: <CheckCircle2 size={24} className="text-emerald-500" /> },
+  { id: 'Applied', title: 'I already applied', desc: 'Track your preparation progress and prepare for arrival.', icon: <Hourglass size={24} className="text-amber-500" /> },
+  { id: 'Preparing', title: 'I’m preparing documents', desc: 'Get document guidance and AI-assisted validation.', icon: <FileText size={24} className="text-blue-500" /> },
+  { id: 'Not Started', title: 'I haven’t started yet', desc: 'We’ll help you understand requirements and next steps.', icon: <Map size={24} className="text-purple-500" /> },
+  { id: 'Not Sure', title: 'I’m not sure which visa I need', desc: 'Answer a few questions and get personalized recommendations.', icon: <HelpCircle size={24} className="text-gray-500" /> }
 ];
 
 export const documents = [

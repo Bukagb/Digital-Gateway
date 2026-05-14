@@ -321,7 +321,7 @@ export default function Housing() {
         <p className="text-text-muted text-lg">Browse safe and trusted housing options suitable for your stay in Portugal.</p>
       </div>
 
-      <div className="bg-white p-6 rounded-[2rem] border border-teal-50 shadow-soft space-y-6">
+      <div className="bg-white p-6 rounded-[2rem] border border-g-100 shadow-soft space-y-6">
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="flex-1 relative group">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors" size={20} />
@@ -364,7 +364,7 @@ export default function Housing() {
           <motion.div 
             key={listing.id}
             layoutId={listing.id}
-            className="group bg-white rounded-[2.5rem] overflow-hidden border border-teal-50 shadow-soft hover:shadow-xl transition-all"
+            className="group bg-white rounded-[2.5rem] overflow-hidden border border-g-100 shadow-soft hover:shadow-xl transition-all"
           >
             <div className="relative h-56 overflow-hidden">
               <ImageCarousel images={listing.gallery || [listing.image]} id={listing.id} />
@@ -392,7 +392,7 @@ export default function Housing() {
               
               <div className="flex flex-wrap gap-2">
                 {listing.verified && (
-                  <span className="flex items-center gap-1.5 bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full text-[10px] font-bold border border-emerald-100">
+                  <span className="flex items-center gap-1.5 bg-g-50 text-g-600 px-3 py-1 rounded-full text-[10px] font-bold border border-g-100">
                     <ShieldCheck size={12} /> Verified
                   </span>
                 )}
@@ -480,7 +480,7 @@ export default function Housing() {
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="p-5 bg-emerald-50 rounded-3xl border border-emerald-100 flex items-center gap-4">
+                      <div className="p-5 bg-g-50 rounded-3xl border border-g-100 flex items-center gap-4">
                         <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-emerald-500 shadow-sm">
                           <ShieldCheck size={24} />
                         </div>
@@ -532,10 +532,10 @@ export default function Housing() {
                     </div>
 
                     <div className="flex flex-wrap gap-4 pt-4 border-t border-gray-100">
-                      <div className="flex items-center gap-3 bg-emerald-50 p-4 rounded-2xl border border-emerald-100 flex-1">
-                        <ShieldCheck className="text-emerald-600" size={24} />
+                      <div className="flex items-center gap-3 bg-g-50 p-4 rounded-2xl border border-g-100 flex-1">
+                        <ShieldCheck className="text-g-600" size={24} />
                         <div>
-                          <p className="text-xs font-black uppercase text-emerald-600">Verification</p>
+                          <p className="text-xs font-black uppercase text-g-600">Verification</p>
                           <p className="text-[11px] font-bold text-emerald-800">Verified by Gateway</p>
                         </div>
                       </div>
@@ -657,7 +657,7 @@ export default function Housing() {
                             className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-4 px-6 text-ink font-bold focus:outline-none focus:ring-2 focus:ring-primary/20"
                           />
                         </div>
-                        <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-100">
+                        <div className="p-4 bg-g-50 rounded-2xl border border-g-100">
                           <p className="text-[10px] text-emerald-800 font-bold text-center uppercase tracking-widest">A Digital Gateway expert will contact you to finalize the contract after submission.</p>
                         </div>
                       </div>
@@ -683,7 +683,7 @@ export default function Housing() {
 
                   {bookingStep === 'success' && (
                      <div className="h-full flex flex-col items-center justify-center py-10 text-center space-y-8 animate-in zoom-in-95 duration-500">
-                      <div className="w-24 h-24 bg-emerald-500 text-white rounded-full flex items-center justify-center mx-auto shadow-2xl shadow-emerald-200">
+                      <div className="w-24 h-24 bg-g-500 text-white rounded-full flex items-center justify-center mx-auto shadow-2xl shadow-emerald-200">
                         <CheckCircle2 size={48} />
                       </div>
                       <div>
@@ -827,7 +827,7 @@ export default function Housing() {
         <p className="text-text-muted text-lg">Understand the housing landscape and requirements in Portugal.</p>
       </div>
 
-      <section className="bg-white p-8 rounded-[2.5rem] border border-teal-50 shadow-soft">
+      <section className="bg-white p-8 rounded-[2.5rem] border border-g-100 shadow-soft">
         <h2 className="text-2xl font-bold mb-4">Overview</h2>
         <p className="text-text-muted leading-relaxed">
           Housing is one of the most important and challenging steps for international students. Finding a permanent address isn't just about comfort; it's practically mandatory for finalizing your <span className="font-bold text-primary">NIF</span>, opening a full <span className="font-bold text-primary">bank account</span>, and completing your <span className="font-bold text-primary">residency registration</span>.
@@ -835,7 +835,7 @@ export default function Housing() {
       </section>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <section className="bg-white p-8 rounded-[2.5rem] border border-teal-50 shadow-soft">
+        <section className="bg-white p-8 rounded-[2.5rem] border border-g-100 shadow-soft">
           <h3 className="text-xl font-bold mb-6">Types of Housing</h3>
           <div className="space-y-4">
             {[
@@ -857,7 +857,7 @@ export default function Housing() {
         </section>
 
         <div className="space-y-8">
-          <section className="bg-white p-8 rounded-[2.5rem] border border-teal-50 shadow-soft">
+          <section className="bg-white p-8 rounded-[2.5rem] border border-g-100 shadow-soft">
             <h3 className="text-xl font-bold mb-6">Requirements</h3>
             <ul className="space-y-3">
               {['Valid Passport', 'Proof of income or guarantor (sometimes)', 'Deposit (usually 1–2 months rent)'].map((req, i) => (
@@ -869,7 +869,7 @@ export default function Housing() {
             </ul>
           </section>
 
-          <section className="bg-white p-8 rounded-[2.5rem] border border-teal-50 shadow-soft">
+          <section className="bg-white p-8 rounded-[2.5rem] border border-g-100 shadow-soft">
             <h3 className="text-xl font-bold mb-6">Average Pricing</h3>
             <div className="flex gap-4">
               <div className="flex-1 p-4 bg-gray-50 rounded-2xl text-center">
@@ -885,7 +885,7 @@ export default function Housing() {
         </div>
       </div>
 
-      <section className="bg-white p-8 rounded-[2.5rem] border border-teal-50 shadow-soft">
+      <section className="bg-white p-8 rounded-[2.5rem] border border-g-100 shadow-soft">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
             <h3 className="text-xl font-bold text-ink">Trusted Platforms</h3>
@@ -896,7 +896,7 @@ export default function Housing() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             { name: 'Uniplaces', url: 'https://www.uniplaces.com/', logo: 'U', color: 'bg-blue-600', desc: 'Mid-long term stays' },
-            { name: 'Idealista', url: 'https://www.idealista.pt/', logo: 'I', color: 'bg-emerald-600', desc: 'Real estate portal' },
+            { name: 'Idealista', url: 'https://www.idealista.pt/', logo: 'I', color: 'bg-g-600', desc: 'Real estate portal' },
             { name: 'Spotahome', url: 'https://www.spotahome.com/', logo: 'S', color: 'bg-orange-600', desc: 'Online booking focus' },
             { name: 'Inlife', url: 'https://inlifeportugal.com/', logo: 'N', color: 'bg-purple-600', desc: 'Video tours available' }
           ].map((platform) => (
@@ -941,7 +941,7 @@ export default function Housing() {
         </div>
       </section>
 
-      <section className="bg-white p-8 rounded-[2.5rem] border border-teal-50 shadow-soft">
+      <section className="bg-white p-8 rounded-[2.5rem] border border-g-100 shadow-soft">
         <h3 className="text-xl font-bold mb-8">Step-by-Step Guide</h3>
         <div className="space-y-8">
           {[
@@ -1009,7 +1009,7 @@ export default function Housing() {
     <div className="max-w-6xl mx-auto py-4 space-y-10">
       {/* Tabs */}
       <div className="flex justify-center md:justify-start">
-        <div className="bg-white p-1.5 rounded-[1.5rem] border border-teal-50 shadow-soft flex gap-2">
+        <div className="bg-white p-1.5 rounded-[1.5rem] border border-g-100 shadow-soft flex gap-2">
           <button 
             onClick={() => setActiveTab('find')}
             className={`px-8 py-3.5 rounded-[1.2rem] text-sm font-bold transition-all ${

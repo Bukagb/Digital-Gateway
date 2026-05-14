@@ -1,22 +1,20 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  ArrowLeft, 
-  Clock, 
-  AlertCircle, 
-  ExternalLink, 
-  CheckCircle2, 
+import {
+  ArrowLeft,
+  Clock,
+  AlertCircle,
+  ExternalLink,
+  CheckCircle2,
   Info,
   ChevronRight,
   MessageCircle,
   HelpCircle,
   Landmark,
   Train,
-  HeartPulse,
   GraduationCap,
   Globe,
   Home,
-  Flag,
   Sparkles,
   Zap,
   UploadCloud,
@@ -48,13 +46,13 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
     'Address Proof': 'missing',
     'Enrollment Proof': 'missing'
   });
-  
+
   const task = tasks.find(t => t.id === taskId);
-  
+
   if (!task) return <div>Task not found</div>;
 
   const [isUploading, setIsUploading] = React.useState(false);
-  
+
   const hasVisa = user.visaStatus === 'Approved';
   const isRestricted = !hasVisa && (taskId === 'nif' || taskId === 'bank-account');
 
@@ -120,7 +118,7 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
                   <span className="text-xs text-text-muted font-bold uppercase tracking-widest">Single Payment</span>
                 </div>
                 <div className="flex flex-col items-end gap-2">
-                   <button 
+                  <button
                     onClick={() => setIsAssistedStarted(true)}
                     className="bg-primary text-white font-bold px-10 py-4 rounded-2xl shadow-xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all text-sm"
                   >
@@ -153,9 +151,8 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
               { step: 5, label: 'Tracking' }
             ].map((s, i) => (
               <div key={i} className="flex flex-col items-center gap-2 relative">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs transition-all ${
-                  assistedStep >= s.step ? 'bg-primary text-white shadow-lg' : 'bg-gray-100 text-gray-400'
-                }`}>
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs transition-all ${assistedStep >= s.step ? 'bg-primary text-white shadow-lg' : 'bg-gray-100 text-gray-400'
+                  }`}>
                   {assistedStep > s.step ? <Check size={16} /> : s.step}
                 </div>
                 <span className={`text-[9px] font-bold uppercase tracking-widest ${assistedStep >= s.step ? 'text-primary' : 'text-gray-400'}`}>
@@ -175,14 +172,13 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
                 <p className="text-text-muted text-sm">Add the required documents to get started.</p>
               </div>
 
-              <div 
+              <div
                 onClick={() => !isUploading && simulateUpload()}
-                className={`border-2 border-dashed rounded-[2rem] p-12 transition-all group cursor-pointer relative overflow-hidden ${
-                  isUploading ? 'border-primary bg-primary/5 cursor-wait' : 'border-gray-200 hover:border-primary'
-                }`}
+                className={`border-2 border-dashed rounded-[2rem] p-12 transition-all group cursor-pointer relative overflow-hidden ${isUploading ? 'border-primary bg-primary/5 cursor-wait' : 'border-gray-200 hover:border-primary'
+                  }`}
               >
                 {isUploading && (
-                  <motion.div 
+                  <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: '100%' }}
                     transition={{ duration: 1.5, ease: "linear" }}
@@ -190,9 +186,8 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
                   />
                 )}
                 <div className="flex flex-col items-center gap-4">
-                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all ${
-                    isUploading ? 'bg-primary text-white' : 'bg-gray-50 text-gray-400 group-hover:bg-primary/5 group-hover:text-primary'
-                  }`}>
+                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all ${isUploading ? 'bg-primary text-white' : 'bg-gray-50 text-gray-400 group-hover:bg-primary/5 group-hover:text-primary'
+                    }`}>
                     {isUploading ? <RefreshCw size={32} className="animate-spin" /> : <UploadCloud size={32} />}
                   </div>
                   <div className="space-y-1">
@@ -215,23 +210,21 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
                       <FileText size={18} className="text-gray-400" />
                       <span className="text-sm font-medium text-ink">{docName}</span>
                     </div>
-                    <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-1 bg-white rounded-md border border-gray-100 ${
-                      uploadStatus[docName] === 'uploaded' ? 'text-emerald-500 border-emerald-100' : 'text-gray-400'
-                    }`}>
+                    <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-1 bg-white rounded-md border border-gray-100 ${uploadStatus[docName] === 'uploaded' ? 'text-emerald-500 border-emerald-100' : 'text-gray-400'
+                      }`}>
                       {uploadStatus[docName] === 'uploaded' ? '✓ Uploaded' : 'Missing'}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <button 
+              <button
                 disabled={isUploading || !Object.values(uploadStatus).some(s => s === 'uploaded')}
                 onClick={() => setAssistedStep(2)}
-                className={`w-full font-bold py-4 rounded-2xl shadow-xl transition-all ${
-                  isUploading || !Object.values(uploadStatus).some(s => s === 'uploaded')
+                className={`w-full font-bold py-4 rounded-2xl shadow-xl transition-all ${isUploading || !Object.values(uploadStatus).some(s => s === 'uploaded')
                     ? 'bg-gray-100 text-gray-400 cursor-not-allowed shadow-none'
                     : 'bg-primary text-white shadow-primary/30 hover:scale-[1.02] active:scale-[0.98]'
-                }`}
+                  }`}
               >
                 {isUploading ? 'Uploading...' : 'Continue to AI Review'}
               </button>
@@ -254,9 +247,9 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
                         <span className="font-bold text-ink">{docName}</span>
                       </div>
                       {i === 2 && isNIF ? (
-                         <div className="px-3 py-1 bg-amber-50 text-amber-600 rounded-full text-[10px] font-bold flex items-center gap-1.5 border border-amber-100 animate-pulse">
-                           <AlertTriangle size={12} /> NEEDS CORRECTION
-                         </div>
+                        <div className="px-3 py-1 bg-amber-50 text-amber-600 rounded-full text-[10px] font-bold flex items-center gap-1.5 border border-amber-100 animate-pulse">
+                          <AlertTriangle size={12} /> NEEDS CORRECTION
+                        </div>
                       ) : (
                         <div className="px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full text-[10px] font-bold flex items-center gap-1.5 border border-emerald-100">
                           <Check size={12} /> VALID DOCUMENT
@@ -272,7 +265,7 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
                 ))}
               </div>
 
-              <button 
+              <button
                 onClick={() => setAssistedStep(4)}
                 className="w-full bg-primary text-white font-bold py-4 rounded-2xl shadow-xl shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] transition-all"
               >
@@ -297,28 +290,28 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
                   <span className="px-3 py-1 bg-primary text-white rounded-full text-[10px] font-bold">Processing</span>
                 </div>
                 <div className="space-y-6">
-                   {[
-                     { label: 'Submitted', date: 'Today, 10:24 AM', done: true },
-                     { label: 'Processing', date: 'In Progress', done: false },
-                     { label: 'Expert Review', date: 'Pending', done: false },
-                     { label: 'Approved', date: 'Expected 2-3 days', done: false }
-                   ].map((item, i) => (
-                     <div key={i} className="flex gap-4 relative">
-                        {i < 3 && <div className="absolute left-2.5 top-5 w-0.5 h-6 bg-gray-200" />}
-                        <div className={`w-5 h-5 rounded-full border-2 z-10 flex items-center justify-center shadow-sm ${item.done ? 'bg-primary border-primary text-white' : 'bg-white border-gray-200'}`}>
-                          {item.done && <Check size={10} />}
-                        </div>
-                        <div>
-                          <p className={`text-xs font-bold leading-none mb-1 ${item.done ? 'text-ink' : 'text-gray-400'}`}>{item.label}</p>
-                          <p className="text-[10px] text-gray-400">{item.date}</p>
-                        </div>
-                     </div>
-                   ))}
+                  {[
+                    { label: 'Submitted', date: 'Today, 10:24 AM', done: true },
+                    { label: 'Processing', date: 'In Progress', done: false },
+                    { label: 'Expert Review', date: 'Pending', done: false },
+                    { label: 'Approved', date: 'Expected 2-3 days', done: false }
+                  ].map((item, i) => (
+                    <div key={i} className="flex gap-4 relative">
+                      {i < 3 && <div className="absolute left-2.5 top-5 w-0.5 h-6 bg-gray-200" />}
+                      <div className={`w-5 h-5 rounded-full border-2 z-10 flex items-center justify-center shadow-sm ${item.done ? 'bg-primary border-primary text-white' : 'bg-white border-gray-200'}`}>
+                        {item.done && <Check size={10} />}
+                      </div>
+                      <div>
+                        <p className={`text-xs font-bold leading-none mb-1 ${item.done ? 'text-ink' : 'text-gray-400'}`}>{item.label}</p>
+                        <p className="text-[10px] text-gray-400">{item.date}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
               <div className="pt-4">
-                <button 
+                <button
                   onClick={() => setAssistedStep(5)}
                   className="w-full bg-ink text-white font-bold py-4 rounded-2xl shadow-xl hover:bg-black transition-all"
                 >
@@ -330,44 +323,44 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
 
           {assistedStep === 5 && (
             <div className="space-y-8 max-w-2xl mx-auto text-center animate-in fade-in duration-700">
-               <div className="w-24 h-24 bg-primary text-white rounded-[2rem] flex items-center justify-center mx-auto mb-6 shadow-2xl rotate-12">
-                  <Check size={56} strokeWidth={4} />
-               </div>
-               <div>
-                  <h3 className="text-3xl font-black mb-2 text-ink">Your {isNIF ? 'NIF' : 'Document'} is ready!</h3>
-                  <p className="text-text-muted text-sm">Congratulations! Digital Gateway has successfully processed your application.</p>
-               </div>
+              <div className="w-24 h-24 bg-primary text-white rounded-[2rem] flex items-center justify-center mx-auto mb-6 shadow-2xl rotate-12">
+                <Check size={56} strokeWidth={4} />
+              </div>
+              <div>
+                <h3 className="text-3xl font-black mb-2 text-ink">Your {isNIF ? 'NIF' : 'Document'} is ready!</h3>
+                <p className="text-text-muted text-sm">Congratulations! Digital Gateway has successfully processed your application.</p>
+              </div>
 
-               {isNIF && (
-                 <div className="bg-ink p-8 rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden group">
-                   <div className="absolute top-0 right-0 w-48 h-48 bg-primary/20 rounded-full -mr-24 -mt-24 blur-3xl animate-pulse"></div>
-                   <div className="relative z-10 flex flex-col items-center">
-                      <p className="text-[10px] font-black uppercase tracking-[0.3em] text-primary mb-2">PORTUGUESE TAX ID (NIF)</p>
-                      <h4 className="text-4xl font-mono font-black tracking-widest text-white mb-6">284 921 735</h4>
-                      <button className="flex items-center gap-2 bg-white text-ink px-8 py-3 rounded-xl font-bold text-sm hover:scale-105 transition-transform">
-                        <Upload size={18} className="rotate-180" /> Download PDF
-                      </button>
-                   </div>
-                 </div>
-               )}
-
-               {!isNIF && (
-                  <div className="bg-gray-50 p-8 rounded-[2.5rem] border border-gray-100 border-dashed">
-                     <p className="text-sm font-medium text-ink mb-4">You have successfully secured your residency appointment slot.</p>
-                     <button className="flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-xl font-bold text-sm mx-auto shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
-                        <ExternalLink size={18} /> View Confirmation
-                     </button>
+              {isNIF && (
+                <div className="bg-ink p-8 rounded-[2.5rem] text-white shadow-2xl relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-48 h-48 bg-primary/20 rounded-full -mr-24 -mt-24 blur-3xl animate-pulse"></div>
+                  <div className="relative z-10 flex flex-col items-center">
+                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-primary mb-2">PORTUGUESE TAX ID (NIF)</p>
+                    <h4 className="text-4xl font-mono font-black tracking-widest text-white mb-6">284 921 735</h4>
+                    <button className="flex items-center gap-2 bg-white text-ink px-8 py-3 rounded-xl font-bold text-sm hover:scale-105 transition-transform">
+                      <Upload size={18} className="rotate-180" /> Download PDF
+                    </button>
                   </div>
-               )}
+                </div>
+              )}
 
-               <div className="pt-6">
-                 <button 
+              {!isNIF && (
+                <div className="bg-gray-50 p-8 rounded-[2.5rem] border border-gray-100 border-dashed">
+                  <p className="text-sm font-medium text-ink mb-4">You have successfully secured your residency appointment slot.</p>
+                  <button className="flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-xl font-bold text-sm mx-auto shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
+                    <ExternalLink size={18} /> View Confirmation
+                  </button>
+                </div>
+              )}
+
+              <div className="pt-6">
+                <button
                   onClick={() => onUpdateStatus(taskId, 'Completed')}
                   className="text-primary font-bold underline underline-offset-8 decoration-primary/30 hover:decoration-primary transition-all"
-                 >
-                   Back to Journey Map
-                 </button>
-               </div>
+                >
+                  Back to Journey Map
+                </button>
+              </div>
             </div>
           )}
         </div>
@@ -441,16 +434,16 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
       <section className="bg-white p-8 rounded-[2.5rem] border border-teal-50 shadow-soft">
         <h3 className="text-xl font-bold mb-6">Expert Tips</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-           {[
-             'Go early (offices often open at 9 AM).',
-             'Check multiple tax offices (some are less busy).',
-             'If you have a digital key (Chave Móvel Digital), you can do some steps online.'
-           ].map((tip, i) => (
-             <div key={i} className="flex items-start gap-3">
-                <Info size={18} className="text-primary shrink-0 mt-0.5" />
-                <p className="text-sm text-text-muted">{tip}</p>
-             </div>
-           ))}
+          {[
+            'Go early (offices often open at 9 AM).',
+            'Check multiple tax offices (some are less busy).',
+            'If you have a digital key (Chave Móvel Digital), you can do some steps online.'
+          ].map((tip, i) => (
+            <div key={i} className="flex items-start gap-3">
+              <Info size={18} className="text-primary shrink-0 mt-0.5" />
+              <p className="text-sm text-text-muted">{tip}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -464,9 +457,9 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
             <p className="text-text-muted text-sm max-w-sm">Official government portal for tax services and e-balcão.</p>
           </div>
         </div>
-        <a 
-          href="https://sitfiscal.portaldasfinancas.gov.pt/ebalcao/apm" 
-          target="_blank" 
+        <a
+          href="https://sitfiscal.portaldasfinancas.gov.pt/ebalcao/apm"
+          target="_blank"
           rel="no-referrer"
           className="w-full md:w-auto bg-primary text-white font-bold px-8 py-4 rounded-2xl shadow-xl shadow-primary/20 flex items-center justify-center gap-2 hover:scale-105 transition-transform"
         >
@@ -479,9 +472,9 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
   const renderAIMAContent = () => (
     <div className="space-y-10">
       <div className="relative h-64 rounded-[2.5rem] overflow-hidden shadow-2xl">
-        <img 
-          src="https://images.unsplash.com/photo-1540331547168-8b63109225b7?auto=format&fit=crop&q=80&w=800" 
-          alt="AIMA Office" 
+        <img
+          src="https://images.unsplash.com/photo-1540331547168-8b63109225b7?auto=format&fit=crop&q=80&w=800"
+          alt="AIMA Office"
           className="w-full h-full object-cover"
           referrerPolicy="no-referrer"
         />
@@ -528,14 +521,14 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
             Timeline
           </h3>
           <div className="space-y-4">
-             <div className="p-4 bg-gray-50 rounded-xl">
-                <p className="text-xs font-bold text-gray-400 uppercase mb-1">Standard Scheduling</p>
-                <p className="text-sm font-medium">Wait time can be 2–4 months (may take longer)</p>
-             </div>
-             <div className="p-4 bg-gray-50 rounded-xl">
-                <p className="text-xs font-bold text-gray-400 uppercase mb-1">Approval</p>
-                <p className="text-sm font-medium">Final approval takes several weeks after appointment</p>
-             </div>
+            <div className="p-4 bg-gray-50 rounded-xl">
+              <p className="text-xs font-bold text-gray-400 uppercase mb-1">Standard Scheduling</p>
+              <p className="text-sm font-medium">Wait time can be 2–4 months (may take longer)</p>
+            </div>
+            <div className="p-4 bg-gray-50 rounded-xl">
+              <p className="text-xs font-bold text-gray-400 uppercase mb-1">Approval</p>
+              <p className="text-sm font-medium">Final approval takes several weeks after appointment</p>
+            </div>
           </div>
         </section>
       </div>
@@ -589,9 +582,9 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
       <section className="bg-white p-10 rounded-[2.5rem] border-2 border-primary shadow-soft text-center">
         <h3 className="text-2xl font-bold mb-4">Official AIMA Contact</h3>
         <p className="text-gray-500 mb-8 max-w-lg mx-auto">Use the official contact form to request an appointment if you haven't received one automatically.</p>
-        <a 
-          href="https://contactenos.aima.gov.pt/contact-form" 
-          target="_blank" 
+        <a
+          href="https://contactenos.aima.gov.pt/contact-form"
+          target="_blank"
           rel="no-referrer"
           className="inline-flex items-center gap-3 bg-primary text-white font-bold px-12 py-5 rounded-2xl shadow-xl shadow-primary/30 hover:scale-105 transition-transform"
         >
@@ -609,7 +602,7 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
     switch (taskId) {
       case 'nif':
         return renderNIFContent();
-      
+
       case 'phone-number':
         return (
           <div className="space-y-10">
@@ -652,13 +645,13 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
             </section>
 
             <div className="p-6 bg-primary-light/30 border border-primary/20 rounded-[2rem] flex items-start gap-4">
-               <Info className="text-primary shrink-0 mt-1" size={24} />
-               <div>
-                 <h4 className="font-bold text-primary mb-1">Critical Insight</h4>
-                 <p className="text-primary-dark text-sm leading-relaxed">
-                   In Portugal, many digital services and bank applications send OTP codes via SMS. Without a local number, you might be blocked from opening a bank account or using the public transport app.
-                 </p>
-               </div>
+              <Info className="text-primary shrink-0 mt-1" size={24} />
+              <div>
+                <h4 className="font-bold text-primary mb-1">Critical Insight</h4>
+                <p className="text-primary-dark text-sm leading-relaxed">
+                  In Portugal, many digital services and bank applications send OTP codes via SMS. Without a local number, you might be blocked from opening a bank account or using the public transport app.
+                </p>
+              </div>
             </div>
           </div>
         );
@@ -702,7 +695,7 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
                     { step: 'Validate', desc: 'Always tap before boarding every vehicle.' }
                   ].map((s, i) => (
                     <div key={i} className="flex gap-4">
-                      <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs font-bold shrink-0">{i+1}</div>
+                      <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs font-bold shrink-0">{i + 1}</div>
                       <div>
                         <h4 className="font-bold text-text-main">{s.step}</h4>
                         <p className="text-sm text-text-muted">{s.desc}</p>
@@ -714,9 +707,9 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
 
               <div className="w-full lg:w-80 bg-white p-8 rounded-[2.5rem] border border-teal-50 shadow-soft flex flex-col items-center text-center">
                 <div className="w-48 h-32 bg-primary rounded-2xl relative shadow-2xl mb-8 overflow-hidden transform group hover:rotate-3 transition-transform">
-                   <div className="absolute top-4 left-4 text-white font-bold opacity-80 italic">ANDANTE</div>
-                   <div className="absolute bottom-4 right-4 text-white opacity-40"><Train size={48} /></div>
-                   <div className="w-full h-8 bg-black/10 absolute top-12"></div>
+                  <div className="absolute top-4 left-4 text-white font-bold opacity-80 italic">ANDANTE</div>
+                  <div className="absolute bottom-4 right-4 text-white opacity-40"><Train size={48} /></div>
+                  <div className="w-full h-8 bg-black/10 absolute top-12"></div>
                 </div>
                 <h4 className="font-bold text-lg mb-2">Andante Card</h4>
                 <p className="text-sm text-text-muted mb-6">The blue reloadable card used in the Porto metropolitan area.</p>
@@ -735,9 +728,9 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
         return (
           <div className="space-y-10">
             <div className="relative h-64 rounded-[2.5rem] overflow-hidden shadow-2xl">
-              <img 
-                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800" 
-                alt="Language Class" 
+              <img
+                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800"
+                alt="Language Class"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
@@ -785,7 +778,7 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
                     { step: 'Wait for Placement', note: 'After registration, you will be notified of your class schedule.' },
                   ].map((s, i) => (
                     <div key={i} className="flex gap-4">
-                      <div className="w-8 h-8 rounded-full bg-primary-light text-primary font-bold flex items-center justify-center text-xs shrink-0">{i+1}</div>
+                      <div className="w-8 h-8 rounded-full bg-primary-light text-primary font-bold flex items-center justify-center text-xs shrink-0">{i + 1}</div>
                       <div>
                         <h4 className="font-bold text-sm mb-1">{s.step}</h4>
                         <p className="text-xs text-gray-500">{s.note}</p>
@@ -801,17 +794,17 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
                   <div>
                     <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">REQUIREMENTS</h4>
                     <ul className="space-y-2 text-sm">
-                      <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-primary"/> Valid Passport</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-primary"/> NIF (if applicable)</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-primary"/> Local Address Proof</li>
+                      <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-primary" /> Valid Passport</li>
+                      <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-primary" /> NIF (if applicable)</li>
+                      <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-primary" /> Local Address Proof</li>
                     </ul>
                   </div>
                   <div>
                     <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">BENEFITS</h4>
                     <ul className="space-y-2 text-sm">
-                      <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-primary"/> Easier communication</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-primary"/> Job opportunities</li>
-                      <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-primary"/> Faster bureaucratic processes</li>
+                      <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-primary" /> Easier communication</li>
+                      <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-primary" /> Job opportunities</li>
+                      <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-primary" /> Faster bureaucratic processes</li>
                     </ul>
                   </div>
                 </div>
@@ -821,9 +814,9 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
             <section className="bg-white p-10 rounded-[2.5rem] border border-organic shadow-soft text-center">
               <h3 className="text-2xl font-bold mb-4">Find Your Class</h3>
               <p className="text-gray-500 mb-8 max-w-lg mx-auto">Explore the available Portuguese language programs on the official IEFP portal.</p>
-              <a 
-                href="https://iefp.pt/" 
-                target="_blank" 
+              <a
+                href="https://iefp.pt/"
+                target="_blank"
                 rel="no-referrer"
                 className="inline-flex items-center gap-3 bg-primary text-white font-bold px-12 py-5 rounded-2xl shadow-xl shadow-primary/30 hover:scale-105 transition-transform"
               >
@@ -838,9 +831,9 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
           <div className="space-y-10">
             {/* Visual Header */}
             <div className="relative h-64 rounded-[2.5rem] overflow-hidden shadow-2xl">
-              <img 
-                src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&q=80&w=1200" 
-                alt="Bank Card and App" 
+              <img
+                src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&q=80&w=1200"
+                alt="Bank Card and App"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
@@ -920,7 +913,7 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
 
             <section className="bg-white p-8 rounded-[2.5rem] border border-teal-50 shadow-soft">
               <h3 className="text-xl font-bold mb-8">Step-by-Step Guide</h3>
-              
+
               {/* Progress Tracker */}
               <div className="relative mb-12">
                 <div className="absolute top-6 left-0 w-full h-1 bg-gray-100 rounded-full"></div>
@@ -928,9 +921,8 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
                 <div className="relative flex justify-between">
                   {[1, 2, 3, 4, 5].map((s) => (
                     <div key={s} className="flex flex-col items-center">
-                      <div className={`w-12 h-12 rounded-full border-4 flex items-center justify-center font-bold text-sm z-10 transition-all ${
-                        s === 1 ? 'bg-primary border-primary-light text-white shadow-lg' : 'bg-white border-gray-100 text-gray-300'
-                      }`}>
+                      <div className={`w-12 h-12 rounded-full border-4 flex items-center justify-center font-bold text-sm z-10 transition-all ${s === 1 ? 'bg-primary border-primary-light text-white shadow-lg' : 'bg-white border-gray-100 text-gray-300'
+                        }`}>
                         {s}
                       </div>
                       <p className="mt-2 text-[10px] font-bold text-gray-400">STEP {s}</p>
@@ -981,7 +973,7 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
             <section className="bg-white p-10 rounded-[2.5rem] border-2 border-primary shadow-soft text-center">
               <h3 className="text-2xl font-bold mb-4">Ready to choose?</h3>
               <p className="text-gray-500 mb-8 max-w-lg mx-auto">Click below to ask our AI which bank perfectly fits your status as a student or expat.</p>
-              <button 
+              <button
                 className="bg-primary text-white font-bold px-12 py-5 rounded-2xl shadow-xl shadow-primary/30 hover:scale-105 transition-transform flex items-center justify-center gap-3 mx-auto"
               >
                 Which bank is best for me? <ChevronRight size={20} />
@@ -994,9 +986,9 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
         return (
           <div className="space-y-10">
             <div className="relative h-64 rounded-[2.5rem] overflow-hidden shadow-2xl">
-              <img 
-                src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&q=80&w=800" 
-                alt="Healthcare" 
+              <img
+                src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&q=80&w=800"
+                alt="Healthcare"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
@@ -1051,7 +1043,7 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
                   { title: 'Submit & Register', desc: 'Hand in your documents. Usually, you receive your number instantly.' },
                 ].map((item, i) => (
                   <div key={i} className="flex gap-4">
-                    <div className="w-8 h-8 rounded-full bg-primary text-white font-bold flex items-center justify-center shrink-0">{i+1}</div>
+                    <div className="w-8 h-8 rounded-full bg-primary text-white font-bold flex items-center justify-center shrink-0">{i + 1}</div>
                     <div>
                       <h4 className="font-bold text-sm mb-1">{item.title}</h4>
                       <p className="text-xs text-gray-500">{item.desc}</p>
@@ -1087,18 +1079,18 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
             {/* Visual Headers */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="relative h-64 rounded-[2.5rem] overflow-hidden shadow-2xl">
-                <img 
-                  src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=800" 
-                  alt="Apartment interior" 
+                <img
+                  src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=800"
+                  alt="Apartment interior"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold text-primary shadow-sm uppercase tracking-wider">Apartment</div>
               </div>
               <div className="relative h-64 rounded-[2.5rem] overflow-hidden shadow-2xl">
-                <img 
-                  src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800" 
-                  alt="Student housing" 
+                <img
+                  src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800"
+                  alt="Student housing"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
                 />
@@ -1187,7 +1179,7 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
                   <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">Verified Listings</span>
                 </div>
               </div>
-              
+
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
                   { name: 'Uniplaces', url: 'https://www.uniplaces.com/', logo: 'U', color: 'bg-blue-600', desc: 'Mid-long term stays' },
@@ -1195,7 +1187,7 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
                   { name: 'Spotahome', url: 'https://www.spotahome.com/', logo: 'S', color: 'bg-orange-600', desc: 'Online booking focus' },
                   { name: 'Inlife', url: 'https://inlifeportugal.com/', logo: 'N', color: 'bg-purple-600', desc: 'Video tours available' }
                 ].map((platform) => (
-                  <a 
+                  <a
                     key={platform.name}
                     href={platform.url}
                     target="_blank"
@@ -1214,10 +1206,10 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
                 ))}
               </div>
               <div className="mt-8 p-4 bg-orange-50/50 rounded-2xl border border-orange-100 flex items-center gap-3">
-                 <AlertCircle className="text-accent shrink-0" size={20} />
-                 <p className="text-xs text-orange-900 leading-normal">
-                   <strong>Facebook Groups:</strong> Use with extreme caution. Never pay a deposit before seeing a room in person or through a verified platform. Ask them for a video tour or a "Contrato de Arrendamento" proof first.
-                 </p>
+                <AlertCircle className="text-accent shrink-0" size={20} />
+                <p className="text-xs text-orange-900 leading-normal">
+                  <strong>Facebook Groups:</strong> Use with extreme caution. Never pay a deposit before seeing a room in person or through a verified platform. Ask them for a video tour or a "Contrato de Arrendamento" proof first.
+                </p>
               </div>
             </section>
 
@@ -1247,22 +1239,22 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
 
             {/* Risks & Common Mistakes */}
             <section className="bg-red-50 p-8 rounded-[2.5rem] border border-red-100">
-               <h3 className="text-xl font-bold text-red-900 mb-6 flex items-center gap-2">
-                 <AlertCircle size={24} /> Risks & Common Mistakes
-               </h3>
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {[
-                    'Paying before viewing (unless via verified platforms)',
-                    'Fake listings on social media',
-                    'Transfers via Western Union/Wise outside official apps',
-                    'Landlords refusing to provide a legal contract'
-                  ].map((risk, i) => (
-                    <div key={i} className="flex items-start gap-3 text-sm text-red-800 font-medium">
-                       <span className="w-5 h-5 rounded-full bg-white flex items-center justify-center text-red-500 text-[10px] shrink-0 mt-0.5">X</span>
-                       {risk}
-                    </div>
-                  ))}
-               </div>
+              <h3 className="text-xl font-bold text-red-900 mb-6 flex items-center gap-2">
+                <AlertCircle size={24} /> Risks & Common Mistakes
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {[
+                  'Paying before viewing (unless via verified platforms)',
+                  'Fake listings on social media',
+                  'Transfers via Western Union/Wise outside official apps',
+                  'Landlords refusing to provide a legal contract'
+                ].map((risk, i) => (
+                  <div key={i} className="flex items-start gap-3 text-sm text-red-800 font-medium">
+                    <span className="w-5 h-5 rounded-full bg-white flex items-center justify-center text-red-500 text-[10px] shrink-0 mt-0.5">X</span>
+                    {risk}
+                  </div>
+                ))}
+              </div>
             </section>
 
             {/* Tips Section */}
@@ -1286,20 +1278,20 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
 
             {/* Final AI Call to Action */}
             <div className="bg-ink p-10 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
-               <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl -mr-32 -mt-32" />
-               <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
-                  <div className="flex-1 text-center md:text-left">
-                    <h3 className="text-2xl font-bold mb-4">Still unsure about a listing?</h3>
-                    <p className="text-gray-400 text-sm mb-8 leading-relaxed max-w-md">Our AI can analyze listing descriptions or emails from landlords to check for potential red flags and keep you safe.</p>
-                    <div className="flex flex-col sm:flex-row gap-4">
-                      <button className="bg-primary hover:bg-primary-dark text-white font-bold px-6 py-3 rounded-xl transition-all shadow-lg shadow-primary/20 text-xs">Help me find safe housing</button>
-                      <button className="bg-white/10 hover:bg-white/20 text-white font-bold px-6 py-3 rounded-xl transition-all text-xs border border-white/10">Is this listing a scam?</button>
-                    </div>
+              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl -mr-32 -mt-32" />
+              <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
+                <div className="flex-1 text-center md:text-left">
+                  <h3 className="text-2xl font-bold mb-4">Still unsure about a listing?</h3>
+                  <p className="text-gray-400 text-sm mb-8 leading-relaxed max-w-md">Our AI can analyze listing descriptions or emails from landlords to check for potential red flags and keep you safe.</p>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <button className="bg-primary hover:bg-primary-dark text-white font-bold px-6 py-3 rounded-xl transition-all shadow-lg shadow-primary/20 text-xs">Help me find safe housing</button>
+                    <button className="bg-white/10 hover:bg-white/20 text-white font-bold px-6 py-3 rounded-xl transition-all text-xs border border-white/10">Is this listing a scam?</button>
                   </div>
-                  <div className="w-32 h-32 bg-white/5 rounded-3xl backdrop-blur-md flex items-center justify-center p-6 border border-white/10">
-                     <MessageCircle size={64} className="text-primary-light" />
-                  </div>
-               </div>
+                </div>
+                <div className="w-32 h-32 bg-white/5 rounded-3xl backdrop-blur-md flex items-center justify-center p-6 border border-white/10">
+                  <MessageCircle size={64} className="text-primary-light" />
+                </div>
+              </div>
             </div>
           </div>
         );
@@ -1374,7 +1366,7 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
 
   return (
     <div className="max-w-4xl mx-auto py-6 space-y-8 pb-20">
-      <button 
+      <button
         onClick={onBack}
         className="flex items-center gap-2 text-text-muted hover:text-primary font-bold transition-colors group"
       >
@@ -1385,9 +1377,9 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
       <div className="flex flex-col md:flex-row items-center justify-between gap-8">
         <div>
           <div className="flex items-center gap-2 mb-4">
-             <span className="px-3 py-1 bg-primary text-white text-[10px] font-bold rounded-full uppercase tracking-widest">{task.category}</span>
-             <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
-             <span className="text-text-muted text-[10px] font-bold uppercase tracking-widest">{task.timeEstimate}</span>
+            <span className="px-3 py-1 bg-primary text-white text-[10px] font-bold rounded-full uppercase tracking-widest">{task.category}</span>
+            <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
+            <span className="text-text-muted text-[10px] font-bold uppercase tracking-widest">{task.timeEstimate}</span>
           </div>
           <h1 className="text-4xl font-extrabold text-text-main mb-2 tracking-tight">{task.title}</h1>
           <p className="text-text-muted text-lg mb-6">{task.description}</p>
@@ -1396,7 +1388,7 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
             <div className="p-4 bg-amber-50 border border-amber-100 rounded-2xl flex gap-3 mb-6 animate-in slide-in-from-left-4 duration-500">
               <AlertCircle size={20} className="text-amber-600 shrink-0" />
               <p className="text-xs text-amber-800 leading-relaxed font-medium">
-                You’ll need a valid visa before applying for {task.title} or starting certain services. 
+                You’ll need a valid visa before applying for {task.title} or starting certain services.
                 Please ensure your visa is approved before proceeding.
               </p>
             </div>
@@ -1407,13 +1399,13 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
               <div className="flex flex-col gap-2">
                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Choose how you want to proceed</p>
                 <div className="inline-flex p-1 bg-gray-100 rounded-xl w-fit">
-                  <button 
+                  <button
                     onClick={() => setServiceType('assisted')}
                     className={`px-6 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 ${serviceType === 'assisted' ? 'bg-primary text-white shadow-sm' : 'text-gray-500 hover:text-ink'}`}
                   >
                     Assisted Service <Sparkles size={14} className={serviceType === 'assisted' ? 'text-white' : 'text-primary'} />
                   </button>
-                  <button 
+                  <button
                     onClick={() => setServiceType('self')}
                     className={`px-6 py-2 rounded-lg text-xs font-bold transition-all ${serviceType === 'self' ? 'bg-white text-ink shadow-sm' : 'text-gray-500 hover:text-ink'}`}
                   >
@@ -1429,38 +1421,36 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
         </div>
 
         <div className="bg-white p-6 rounded-3xl border border-teal-50 shadow-soft min-w-[240px]">
-           <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-3">CURRENT STATUS</p>
-           <div className="flex flex-col gap-2">
-             {(['Not Started', 'In Progress', 'Completed'] as TaskStatus[]).map(status => (
-               <button
-                 key={status}
-                 onClick={() => onUpdateStatus(taskId, status)}
-                 className={`px-4 py-2.5 text-xs font-bold rounded-xl transition-all border text-left flex items-center justify-between ${
-                   task.status === status 
-                    ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20' 
+          <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-3">CURRENT STATUS</p>
+          <div className="flex flex-col gap-2">
+            {(['Not Started', 'In Progress', 'Completed'] as TaskStatus[]).map(status => (
+              <button
+                key={status}
+                onClick={() => onUpdateStatus(taskId, status)}
+                className={`px-4 py-2.5 text-xs font-bold rounded-xl transition-all border text-left flex items-center justify-between ${task.status === status
+                    ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20'
                     : 'bg-white text-text-muted border-gray-100 hover:bg-teal-50'
-                 }`}
-               >
-                 {status}
-                 {task.status === status && <CheckCircle2 size={14} />}
-               </button>
-             ))}
-           </div>
-           
-           <div className="mt-6 pt-6 border-t border-gray-100">
-             <button 
-               onClick={() => setShowAIHelp(!showAIHelp)}
-               className={`w-full font-bold text-xs py-3 rounded-xl transition-all active:scale-95 shadow-lg flex items-center justify-center gap-2 ${
-                 showAIHelp ? 'bg-ink text-white' : 'bg-accent text-white shadow-accent/20'
-               }`}
-             >
-               <HelpCircle size={14} />
-               {showAIHelp ? 'Close Advice' : 
-                taskId === 'bank-account' ? 'Which bank?' : 
-                taskId === 'aima-appointment' ? 'Help prepare' : 
-                taskId === 'housing-search' ? 'Check listing' : 'Explain Step'}
-             </button>
-           </div>
+                  }`}
+              >
+                {status}
+                {task.status === status && <CheckCircle2 size={14} />}
+              </button>
+            ))}
+          </div>
+
+          <div className="mt-6 pt-6 border-t border-gray-100">
+            <button
+              onClick={() => setShowAIHelp(!showAIHelp)}
+              className={`w-full font-bold text-xs py-3 rounded-xl transition-all active:scale-95 shadow-lg flex items-center justify-center gap-2 ${showAIHelp ? 'bg-ink text-white' : 'bg-accent text-white shadow-accent/20'
+                }`}
+            >
+              <HelpCircle size={14} />
+              {showAIHelp ? 'Close Advice' :
+                taskId === 'bank-account' ? 'Which bank?' :
+                  taskId === 'aima-appointment' ? 'Help prepare' :
+                    taskId === 'housing-search' ? 'Check listing' : 'Explain Step'}
+            </button>
+          </div>
         </div>
       </div>
 
