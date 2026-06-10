@@ -105,7 +105,7 @@ export default function Profile({ user, onUpdateUser, onLogout }: ProfileProps) 
           </div>
           
           <div className="flex-1 text-center md:text-left space-y-1">
-            <h1 className="text-4xl font-black text-ink">{user.name || 'Set your name'}</h1>
+            <h1 className="font-display text-3xl font-bold text-n-800">{user.name || 'Set your name'}</h1>
             <p className="text-lg text-text-muted font-medium flex items-center justify-center md:justify-start gap-2">
               <Globe size={18} className="text-primary" />
               {user.nationality || 'Nationality'} • {user.city || 'Portugal' }

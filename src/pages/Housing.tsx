@@ -317,7 +317,7 @@ export default function Housing() {
   const renderFindHousing = () => (
     <div className="space-y-10 animate-in fade-in duration-500">
       <div className="text-center md:text-left">
-        <h1 className="text-4xl font-extrabold text-ink mb-2 tracking-tight">Find Verified Housing</h1>
+        <h1 className="font-display text-3xl font-bold text-n-800 mb-2">Find Verified Housing</h1>
         <p className="text-text-muted text-lg">Browse safe and trusted housing options suitable for your stay in Portugal.</p>
       </div>
 
@@ -823,7 +823,7 @@ export default function Housing() {
   const renderLearnGuide = () => (
     <div className="space-y-10 animate-in fade-in duration-500">
       <div className="text-center md:text-left">
-        <h1 className="text-4xl font-extrabold text-ink mb-2 tracking-tight">Learn & Guide</h1>
+        <h1 className="font-display text-3xl font-bold text-n-800 mb-2">Learn & Guide</h1>
         <p className="text-text-muted text-lg">Understand the housing landscape and requirements in Portugal.</p>
       </div>
 

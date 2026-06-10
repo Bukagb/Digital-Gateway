@@ -22,7 +22,7 @@ export default function Resources({ resources }: ResourcesProps) {
   return (
     <div className="space-y-10 max-w-6xl mx-auto py-6">
       <div>
-        <h1 className="text-4xl font-extrabold text-text-main mb-2">Resources</h1>
+        <h1 className="font-display text-3xl font-bold text-n-800 mb-2">Resources</h1>
         <p className="text-text-muted text-lg">Quick access to official platforms and helpful tools.</p>
       </div>
 

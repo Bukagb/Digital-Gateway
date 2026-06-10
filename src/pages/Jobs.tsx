@@ -21,7 +21,7 @@ export default function Jobs({ jobs: initialJobs, user }: JobsProps) {
   return (
     <div className="space-y-10 max-w-6xl mx-auto py-6">
       <div>
-        <h1 className="text-4xl font-extrabold text-text-main mb-2">Part-time Jobs</h1>
+        <h1 className="font-display text-3xl font-bold text-n-800 mb-2">Part-time Jobs</h1>
         <p className="text-text-muted text-lg">Opportunities for students (max 20h/week during semesters).</p>
       </div>
 

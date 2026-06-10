@@ -34,7 +34,7 @@
   --color-primary-dark: var(--color-g-700);
   --color-primary-light: var(--color-g-100);
 
-  --color-background: var(--color-g-50);
+  --color-background: #FAFAF8;
   --color-foreground: var(--color-n-800);
   --color-ink: var(--color-n-800);
   --color-accent: #E8860A; /* Amber from capstone */

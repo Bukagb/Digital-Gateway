@@ -49,7 +49,7 @@ export default function MyJourney({ tasks, onSelectTask }: MyJourneyProps) {
     <div className="space-y-12 max-w-6xl mx-auto py-6">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <h1 className="text-4xl font-extrabold text-text-main mb-2">My Journey</h1>
+          <h1 className="font-display text-3xl font-bold text-n-800 mb-2">My Journey</h1>
           <p className="text-text-muted text-lg">Follow the path to a smooth life in Portugal.</p>
         </div>
         <div className="flex gap-2">

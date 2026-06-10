@@ -1381,7 +1381,7 @@ export default function TaskDetail({ taskId, tasks, user, onBack, onUpdateStatus
             <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
             <span className="text-text-muted text-[10px] font-bold uppercase tracking-widest">{task.timeEstimate}</span>
           </div>
-          <h1 className="text-4xl font-extrabold text-text-main mb-2 tracking-tight">{task.title}</h1>
+          <h1 className="font-display text-3xl font-bold text-n-800 mb-2">{task.title}</h1>
           <p className="text-text-muted text-lg mb-6">{task.description}</p>
 
           {isRestricted && (

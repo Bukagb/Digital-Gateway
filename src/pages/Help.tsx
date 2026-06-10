@@ -28,7 +28,7 @@ export default function Help() {
         <div className="w-20 h-20 bg-primary-light rounded-[2rem] flex items-center justify-center text-primary mx-auto mb-6 shadow-soft">
           <HelpCircle size={40} />
         </div>
-        <h1 className="text-4xl font-black text-ink">How can we help?</h1>
+        <h1 className="font-display text-3xl font-bold text-n-800">How can we help?</h1>
         <p className="text-lg text-text-muted max-w-lg mx-auto">
           Find answers to common questions or reach out to our support team.
         </p>

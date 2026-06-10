@@ -117,7 +117,7 @@ export default function Community({ groups: initialGroups, user }: CommunityProp
     <div className="space-y-10 max-w-6xl mx-auto py-6">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <h1 className="text-4xl font-extrabold text-text-main mb-2">Community</h1>
+          <h1 className="font-display text-3xl font-bold text-n-800 mb-2">Community</h1>
           <p className="text-text-muted text-lg">Connect with students who share your journey.</p>
         </div>
         <button 
