@@ -1,21 +1,21 @@
 import React from 'react';
-import { 
-  Plane, 
-  BookOpen, 
-  Briefcase, 
-  Users, 
-  CheckCircle2, 
-  Hourglass, 
-  FileText, 
-  Map, 
-  HelpCircle 
+import {
+  Plane,
+  BookOpen,
+  Briefcase,
+  Users,
+  CheckCircle2,
+  Hourglass,
+  FileText,
+  Map,
+  HelpCircle
 } from 'lucide-react';
 
 export const countries = [
-  "Nigeria", "Brazil", "India", "USA", "UK", "Canada", "Angola", "UAE", "Germany", "France", "Italy", "Spain", "Portugal", "Australia", "China", "Japan", "Ireland"
+  "Nigeria", "Brazil", "India", "USA", "UK", "Canada", "Angola", "UAE", "Germany", "France", "Italy", "Spain", "Portugal", "Australia", "China", "Costa Rica", "Japan", "Ireland"
 ];
 
-export const filteredCountries = (query: string) => 
+export const filteredCountries = (query: string) =>
   countries.filter(c => c.toLowerCase().includes(query.toLowerCase()));
 
 export const motivations = [
